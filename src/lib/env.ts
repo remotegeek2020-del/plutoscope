@@ -30,6 +30,8 @@ const serverSchema = z.object({
   FIRECRAWL_API_KEY: z.string().min(1).optional(),
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
+  // Shared secret the scheduler trigger (Vercel Cron) presents to the internal tracking route.
+  CRON_SECRET: z.string().min(1).optional(),
 });
 
 type ServerEnv = z.infer<typeof serverSchema>;
@@ -46,6 +48,7 @@ export function getServerEnv(): ServerEnv {
     FIRECRAWL_API_KEY: process.env.FIRECRAWL_API_KEY,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    CRON_SECRET: process.env.CRON_SECRET,
   });
   return cachedServerEnv;
 }

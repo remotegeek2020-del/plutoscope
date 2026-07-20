@@ -153,17 +153,25 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
   first). Live prototype verification of the three shapes is DEFERRED until API keys are in a
   deployed env (keys kept in Vercel, not CI).
 - **Testing:** vitest (`npm test`); CI runs lint + typecheck + test + build.
-- **Scheduler (Week 3):** enqueue is a SQL function `app.enqueue_due_tracking_runs(interval)`
+- **Scheduler — ENQUEUE (Week 3):** SQL function `app.enqueue_due_tracking_runs(interval)`
   (SECURITY DEFINER) scheduled hourly by **pg_cron** job `plutoscope-enqueue-tracking`
-  (migration `0005`); it inserts one `pending` tracking_run per (prompt × engine) that's due
-  (weekly cadence), idempotently. Execution is the **`worker` Edge Function**
-  (`supabase/functions/worker`) — deployed to dev + staging; it claims pending runs and
-  dispatches per engine via an adapter registry that's **empty until Week 4** (runs left
-  pending, reported as skipped). Wiring cron→worker (pg_cron + pg_net) happens in Week 4 once
-  adapters exist. `supabase/functions` is excluded from tsc/prettier (Deno runtime).
-- **App screens:** six placeholder routes under the auth-gated `(app)` route group
-  (`/dashboard`, `/projects/new`, `/audit`, `/competitive`, `/briefs`, `/clients`) — filled in
-  across Milestones 1–4.
+  (migration `0005`); inserts one `pending` tracking_run per (prompt × engine) that's due
+  (weekly cadence), idempotently.
+- **Scheduler — EXECUTE (Week 4, architecture decision):** runs in **Next.js (Node)**, not the
+  Supabase Edge worker — because the engine API keys live in Vercel's env store and keeping all
+  adapters in one runtime keeps them unit-testable. Path:
+  `GET /api/internal/tracking/process` (secret-gated by `CRON_SECRET`), triggered by **Vercel
+  Cron** (`vercel.json`). `src/lib/tracking/process-runs.ts` claims pending runs via the
+  service-role admin client, runs the adapter, writes citations, marks succeeded/failed. The
+  old Deno `worker` Edge Function is **retired** (redeployed as a 410 stub; removable in the
+  Supabase dashboard).
+- **Engine adapters:** `src/lib/engines/` — `getAdapter(engine)` registry; `perplexity.ts`
+  (Sonar `run` + pure `normalize`, unit-tested) is the first (Milestone 1). OpenAI/Gemini in
+  Milestone 2. `src/lib/tracking/url.ts` extracts `cited_domain`.
+- **App screens:** placeholder routes under the auth-gated `(app)` route group
+  (`/dashboard`, `/projects/new`, `/audit`, `/competitive`, `/briefs`, `/clients`) plus an
+  internal `/internal/runs` inspector for TrackingRun/Citation rows (RLS-scoped to the signed-in
+  user). Full staff admin console is Milestone 5.
 
 ## Live API pricing check (confirmed 2026-07-20)
 

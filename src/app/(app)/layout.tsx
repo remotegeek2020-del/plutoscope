@@ -12,6 +12,7 @@ const NAV = [
   { href: '/competitive', label: 'Competitive' },
   { href: '/briefs', label: 'Content Briefs' },
   { href: '/clients', label: 'Clients' },
+  { href: '/internal/runs', label: 'Tracking (internal)' },
 ];
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
