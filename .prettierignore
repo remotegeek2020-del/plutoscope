@@ -9,3 +9,6 @@ src/types/database.types.ts
 # Hand-authored markdown docs (preserve manual wrapping / structure)
 *.md
 **/*.md
+
+# Supabase Edge Functions run on Deno (URL/jsr imports); not part of the Next build
+supabase/functions
