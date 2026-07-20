@@ -1,4 +1,4 @@
-// Generated from the Supabase schema (migrations 0001–0003). Regenerate after any migration:
+// Generated from the Supabase schema (migrations 0001–0004). Regenerate after any migration:
 //   supabase gen types typescript --project-id <ref> > src/types/database.types.ts
 // Only the `public` schema is exposed via the API; the `app` (staff/admin) schema is
 // intentionally absent here because it is never reachable from client/anon/authenticated roles.
@@ -49,6 +49,181 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_reports: {
+        Row: {
+          aeo_findings: Json
+          created_at: string
+          geo_findings: Json
+          id: string
+          overall_score: number | null
+          page_url: string
+          project_id: string
+          recommendations: Json
+          seo_findings: Json
+          updated_at: string
+        }
+        Insert: {
+          aeo_findings?: Json
+          created_at?: string
+          geo_findings?: Json
+          id?: string
+          overall_score?: number | null
+          page_url: string
+          project_id: string
+          recommendations?: Json
+          seo_findings?: Json
+          updated_at?: string
+        }
+        Update: {
+          aeo_findings?: Json
+          created_at?: string
+          geo_findings?: Json
+          id?: string
+          overall_score?: number | null
+          page_url?: string
+          project_id?: string
+          recommendations?: Json
+          seo_findings?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_reports_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      citations: {
+        Row: {
+          cited_domain: string
+          created_at: string
+          id: string
+          position: number | null
+          project_id: string
+          snippet: string | null
+          source_url: string | null
+          tracking_run_id: string
+        }
+        Insert: {
+          cited_domain: string
+          created_at?: string
+          id?: string
+          position?: number | null
+          project_id: string
+          snippet?: string | null
+          source_url?: string | null
+          tracking_run_id: string
+        }
+        Update: {
+          cited_domain?: string
+          created_at?: string
+          id?: string
+          position?: number | null
+          project_id?: string
+          snippet?: string | null
+          source_url?: string | null
+          tracking_run_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "citations_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "citations_tracking_run_id_fkey"
+            columns: ["tracking_run_id"]
+            isOneToOne: false
+            referencedRelation: "tracking_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitors: {
+        Row: {
+          created_at: string
+          domain: string
+          id: string
+          project_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+          id?: string
+          project_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+          id?: string
+          project_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitors_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_briefs: {
+        Row: {
+          created_at: string
+          draft_content: string | null
+          gap_summary: string | null
+          id: string
+          project_id: string
+          status: Database["public"]["Enums"]["content_brief_status"]
+          topic_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          draft_content?: string | null
+          gap_summary?: string | null
+          id?: string
+          project_id: string
+          status?: Database["public"]["Enums"]["content_brief_status"]
+          topic_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          draft_content?: string | null
+          gap_summary?: string | null
+          id?: string
+          project_id?: string
+          status?: Database["public"]["Enums"]["content_brief_status"]
+          topic_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_briefs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_briefs_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       projects: {
         Row: {
           account_id: string
@@ -84,6 +259,172 @@ export type Database = {
           },
         ]
       }
+      prompts: {
+        Row: {
+          created_at: string
+          id: string
+          project_id: string
+          text: string
+          topic_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          project_id: string
+          text: string
+          topic_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          project_id?: string
+          text?: string
+          topic_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prompts_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prompts_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topics: {
+        Row: {
+          created_at: string
+          id: string
+          project_id: string
+          text: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          project_id: string
+          text: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          project_id?: string
+          text?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topics_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tracking_runs: {
+        Row: {
+          created_at: string
+          engine: Database["public"]["Enums"]["tracking_engine"]
+          error: string | null
+          id: string
+          project_id: string
+          prompt_id: string
+          raw_response: Json | null
+          run_at: string | null
+          status: Database["public"]["Enums"]["tracking_run_status"]
+        }
+        Insert: {
+          created_at?: string
+          engine: Database["public"]["Enums"]["tracking_engine"]
+          error?: string | null
+          id?: string
+          project_id: string
+          prompt_id: string
+          raw_response?: Json | null
+          run_at?: string | null
+          status?: Database["public"]["Enums"]["tracking_run_status"]
+        }
+        Update: {
+          created_at?: string
+          engine?: Database["public"]["Enums"]["tracking_engine"]
+          error?: string | null
+          id?: string
+          project_id?: string
+          prompt_id?: string
+          raw_response?: Json | null
+          run_at?: string | null
+          status?: Database["public"]["Enums"]["tracking_run_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracking_runs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tracking_runs_prompt_id_fkey"
+            columns: ["prompt_id"]
+            isOneToOne: false
+            referencedRelation: "prompts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      visibility_scores: {
+        Row: {
+          aeo_score: number | null
+          blended_index: number | null
+          created_at: string
+          date: string
+          geo_score: number | null
+          id: string
+          project_id: string
+          seo_score: number | null
+        }
+        Insert: {
+          aeo_score?: number | null
+          blended_index?: number | null
+          created_at?: string
+          date: string
+          geo_score?: number | null
+          id?: string
+          project_id: string
+          seo_score?: number | null
+        }
+        Update: {
+          aeo_score?: number | null
+          blended_index?: number | null
+          created_at?: string
+          date?: string
+          geo_score?: number | null
+          id?: string
+          project_id?: string
+          seo_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visibility_scores_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -101,6 +442,9 @@ export type Database = {
         | "incomplete"
         | "incomplete_expired"
         | "unpaid"
+      content_brief_status: "draft" | "approved" | "archived"
+      tracking_engine: "openai" | "perplexity" | "gemini"
+      tracking_run_status: "pending" | "running" | "succeeded" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -238,6 +582,9 @@ export const Constants = {
         "incomplete_expired",
         "unpaid",
       ],
+      content_brief_status: ["draft", "approved", "archived"],
+      tracking_engine: ["openai", "perplexity", "gemini"],
+      tracking_run_status: ["pending", "running", "succeeded", "failed"],
     },
   },
 } as const

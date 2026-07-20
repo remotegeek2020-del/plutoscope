@@ -133,6 +133,27 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
 - **Git:** develop on branch `claude/plutoscope-fullstack-setup-z8dy4b`; commit with
   clear messages; push with `git push -u origin <branch>`. Don't open PRs unless asked.
 
+## Implementation status & notes
+
+- **Migrations applied to dev + staging:** `0001` Account+Project · `0002` staff realm +
+  RLS bypass · `0003` hardening · `0004` full data spine (Competitor, Topic, Prompt,
+  TrackingRun, Citation, VisibilityScore, AuditReport, ContentBrief) with owner + staff-read
+  RLS. Regenerate `src/types/database.types.ts` after any migration.
+- **Topic/Prompt normalization:** the §18 "Topic/Prompt" entity is split into `topics` (user
+  topic) + `prompts` (expanded set). `TrackingRun.prompt_id → prompts.id`. `project_id` is
+  denormalized onto `prompts`, `tracking_runs`, `citations` for simple/fast RLS + queries.
+- **Child-table RLS** uses `app.owns_project()` (owner, full access) + `app.project_in_
+  impersonated_account()` (staff, read-only) SECURITY DEFINER helpers.
+- **Tier caps** live in `src/lib/tiers.ts` — `maxPromptsPerTopic` is the AI-API cost lever
+  (first-pass numbers, PENDING founder sign-off).
+- **Topic→prompt expansion:** `src/lib/tracking/prompt-expansion.ts` (deterministic,
+  template-based, per-tier capped; unit-tested with vitest).
+- **Engine adapter contract:** `src/lib/engines/types.ts` + documented response shapes in
+  `docs/engine-response-shapes.md`. Adapters themselves are built from Milestone 1 (Perplexity
+  first). Live prototype verification of the three shapes is DEFERRED until API keys are in a
+  deployed env (keys kept in Vercel, not CI).
+- **Testing:** vitest (`npm test`); CI runs lint + typecheck + test + build.
+
 ## Live API pricing check (confirmed 2026-07-20)
 
 Mechanisms unchanged from §17.2; only model generations advanced. Re-validate before
