@@ -1,5 +1,20 @@
-import { ScreenPlaceholder } from '../../_components/screen-placeholder';
+import { ensureAccount } from '@/lib/accounts';
+import { getTierLimits } from '@/lib/tiers';
 
-export default function ProjectSetupPage() {
-  return <ScreenPlaceholder title="Project Setup" milestone="Milestone 1 (Week 5)" />;
+import { ProjectSetupForm } from './project-setup-form';
+
+export const dynamic = 'force-dynamic';
+
+export default async function ProjectSetupPage() {
+  const account = await ensureAccount();
+  const limits = getTierLimits(account.tier);
+
+  return (
+    <ProjectSetupForm
+      tier={account.tier}
+      maxTopics={limits.maxTopicsPerProject}
+      maxPromptsPerTopic={limits.maxPromptsPerTopic}
+      maxCompetitors={limits.maxCompetitorsPerProject}
+    />
+  );
 }
