@@ -1,0 +1,2473 @@
+Plutoscope 
+
+SEO + AEO + GEO Visibility Platform — Master Planning Document (v4) 
+
+Every planning document consolidated, with a clickable Contents page and Word/PDF sidebar 
+navigation 
+
+Prepared July 17, 2026 
+
+Note for the build agent: This document merges nine working documents into one. Brand identity (name, 
+logo, vision, mission) opens the document right after this note, ahead of Part I, since that's the first thing 
+anyone opening this should see. Part III (MVP Feature & Technical Spe c) is the authoritative engineering spec, 
+including a costed, stage-by-stage tech stack (§17). Part II supersedes Part I's original MVP engine list. Part IV 
+is a process guide for talking to users. Part V is a long-range feature roadmap, not a committed backlog. Part 
+VI gives a phase-level build timeline; Part VIII expands that into a week-by-week task checklist — use Part VIII 
+as the actual day-to-day sprint plan. Part VII maps the timeline onto the people (or agent skills) needed to 
+build it. 
+
+How to navigate: Every entry in the Contents page (next page) is a clickable link that jumps straight to that 
+section — use it like a set of tabs. Each Part's opening page also has a “← Back to Contents” link to jump back. 
+If you're viewing this in Word, open View → Navigation Pane for a permanent sidebar outline; most PDF 
+viewers show the same outline in a Bookmarks/Outline panel. 
+
+ 
+Contents 
+
+About Plutoscope 
+
+  Name & Origin Story 
+
+  Draft Logo 
+
+  Vision 
+
+  Mission 
+
+Part I  Product & Business Plan 
+
+  1.  Executive Summary 
+
+  2.  What SEO, AEO, and GEO Mean (and Why All Three Matter) 
+
+  3.  Market & Competitive Landscape 
+
+  4.  Target Users 
+
+  5.  Core Product: Four Pillars 
+
+  6.  MVP Scope vs. Roadmap (original — see Part II for revision) 
+
+  7.  Pricing & Subscription Strategy 
+
+  8.  Go-to-Market 
+
+  9.  Key Risks & Open Questions 
+
+Part II  Technical Feasibility: AI Citation Data 
+
+  10.  Bottom Line 
+
+  11.  Per-Engine Findings 
+
+  12.  Why This Changes the MVP Scope 
+
+  13.  Revised MVP Recommendation 
+
+  14.  Rough AI-API Cost Model 
+
+Part III  MVP Feature & Technical Spec (build spec — authoritative for engineering) 
+
+  15.  Scope of This Spec 
+
+  16.  System Architecture 
+
+  17.  Recommended Stack & Cost (scalable, staged) 
+
+  18.  Data Model 
+
+  19.  Per-Engine Tracking Methodology 
+
+  20.  Core Screens 
+
+  21.  Suggested Build Sequence 
+
+  22.  Open Engineering Questions 
+
+Part IV  User Validation Kit (process reference — not required for build) 
+
+  23.  How to Use This 
+
+  24.  Outreach Messages 
+
+  25.  Discovery Interview Script 
+
+  26.  What to Listen For / Synthesis Template 
+
+Part V  20-Year Feature Roadmap 
+
+  27.  How to Read This Roadmap 
+
+  28.  Horizon 1 Features (Years 0-3) 
+
+  29.  Horizon 2 Features (Years 3-7) 
+
+  30.  Horizon 3 Features (Years 7-15) 
+
+  31.  Horizon 4 Features — Speculative (Years 15-20) 
+
+  32.  Why This Stays One App 
+
+  33.  Suggested Feature Sequencing 
+
+Part VI  Build Timeline & Phased Rollout 
+
+  34.  MVP Build Schedule 
+
+  35.  Launch & Beta Timeline 
+
+  36.  Long-Range Rollout Timeline 
+
+  37.  Master Timeline Summary Table 
+
+Part VII  Team & Hiring Plan 
+
+  38.  Core Build Team (MVP Phase) 
+
+  39.  Skills Matrix 
+
+  40.  Team Composition by Growth Stage 
+
+  41.  Build-vs-Buy / Working With a Coding Agent 
+
+Part VIII  Detailed Development Timeline (Week-by-Week) 
+
+  42.  How to Use This 
+
+  43.  Phase 0 — Foundation (Weeks 1-3) 
+
+  44.  Milestone 1 — Data Spine + Perplexity Adapter (Weeks 4-6) 
+
+  45.  Milestone 2 — OpenAI + Gemini Adapters, Dashboard (Weeks 7-10) 
+
+  46.  Milestone 3 — Audit + Competitive View (Weeks 11-14) 
+
+  47.  Milestone 4 — Content Generation + Consultant Mode (Weeks 15-18) 
+
+  48.  Milestone 5 — Billing + Onboarding (Weeks 19-21) 
+
+  49.  Beta & Launch (Weeks 20-28) 
+
+  50.  Master Task Summary 
+
+ 
+ABOUT PLUTOSCOPE 
+
+Brand  Identity 
+
+The name, the mark, and why the product is called what it's called. 
+
+← Back to Contents 
+
+Name & Origin Story 
+
+Pluto is real. It has mountains, seasons, a thin nitrogen atmosphere, five moons — it just got reclassified as a 
+“dwarf planet” in 2006  and quietly dropped out of the conversation most people have about the solar system. It 
+didn't get smaller or less real. It got overlooked by a system that only has room for a handful of headline names.  
+
+That's the exact position a solo creator or a small consulting shop is in today. The content is good, the expertise 
+is real, but the visibility layer — Google's rankings, AI Overviews, ChatGPT's citations — was built around, and 
+increasingly optimized for, a handful of headline brands. Being right isn't the same as being seen. 
+
+A “scope” is the instrument that fixes that: a telescope, a periscope, an aperture that gathers enough light to 
+bring something faint and far away into clear focus. Plutoscope is the instrument pointed at the part of the sky 
+everyone else stopped looking at — the tool that finds and focuses on the sources AI engines are citing, ignoring, 
+or getting wrong, across SEO, AEO, and GEO alike. 
+
+The three disciplines map naturally onto the metaphor: SEO is the wide -field view (the whole visible sky of 
+search results), AEO is zooming into a single bright point (the direct answer box), and GEO is deep -space 
+observation — trying to see what's happening inside a process (an AI model synthesizing an answer) that doesn't 
+show its work. Plutoscope is one instrument with three lenses, pointed at one problem: making sure something 
+real doesn't stay invisible just because the system wasn't built to notice it. 
+
+Draft Logo 
+
+The mark: a scope ring (the instrument) with reticle ticks at the four compass points, a dashed orbital path 
+suggesting motion and distance, and Pluto itself — small, warm-colored, caught in the ring, finally in focus. The 
+off-center placement is deliberate: the subject isn't dead center by default, the instrument has to be pointed at 
+it. 
+
+Horizontal lockup (mark + wordmark), for headers, decks, and the app's top nav: 
+
+Status: This is a first-pass concept to validate the direction (instrument + orbit + small-planet-in-focus), not a 
+final production logo — worth a proper design pass (vector cleanup, favicon/app-icon crop, dark-mode 
+variant) once the name is locked in. 
+
+Color palette: deep indigo (#3B2E58) for the instrument/ring — trust, depth, the “serious tool” half of the brand. 
+Warm amber (#E8A33D) for Pluto itself — visibility, warmth, the “finally seen” payoff. The pairing reads as cool 
+instrument, warm subject, which mirrors the product's actual pitch: a precise measurement tool that exists to 
+do something warm — get overlooked brands seen. 
+
+Vision 
+
+A future where visibility on the internet isn't rationed to whoever already has the biggest name — where being 
+genuinely good at what you do is enough to be found, cited, and recommended by the search engines and AI 
+systems people actually use, regardless of budget or brand size. 
+
+Mission 
+
+Plutoscope gives solo creators and independent consultants the same clarity into AI -era search visibility that, 
+until now, only enterprise budgets could buy — one instrument that tracks, audits, and helps fix visibility across 
+SEO, AEO, and GEO, so the people doing real work don't have to stay invisible just because the system wasn't 
+pointed at them. 
+
+ 
+ 
+ 
+PART I 
+
+Product & Business  Plan 
+
+Market context, target users, product pillars, pricing, and go-to-market strategy. 
+
+← Back to Contents 
+
+1. Executive  Summary 
+
+Search is splitting into three overlapping arenas: traditional search engines (SEO), direct-answer surfaces like 
+featured snippets and voice assistants (AEO), and AI chat and generative answer engines like ChatGPT, 
+Perplexity, and Google AI Overviews (GEO). Over 60% of Google searches now end without a click to a third-
+party site, and that share is growing as generative answers absorb more query volume. Brands that only track 
+and optimize for classic SEO rankings are losing visibility they can't see or measure. 
+
+This plan outlines a subscription platform that unifies all three disciplines in one product: visibility tracking 
+across search and AI engines, automated content audits, AI-assisted content generation, and competitive 
+citation analysis. The initial target is solo creators and marketing consultants who are underserved by today's 
+enterprise-priced GEO tools, with a deliberate path to scale into agency and enterprise tiers as the product 
+matures. 
+
+The market has validated demand — tools like Profound, Peec AI, Otterly.AI, AthenaHQ, and Scrunch AI have 
+emerged in the last two years — but pricing is bifurcated: entry tools ($12-$99/mo) offer thin feature sets, while 
+capable platforms start at $189-$489/mo  and enterprise tools are priced out of reach for solo operators and 
+small agencies. That gap is the opening. 
+
+2. What SEO, AEO, and GEO Mean (and Why All Three  Matter) 
+
+2.1 Definitions 
+
+•  SEO (Search Engine Optimization): optimizing for rankings in traditional search results — keywords, 
+
+backlinks, page speed, structured data. Goal: get clicked. 
+
+•  AEO (Answer Engine Optimization): optimizing to be pulled into a direct answer — featured snippets, 
+
+“People Also Ask” boxes, voice assistants. Goal: get extracted as the answer. 
+
+•  GEO (Generative Engine Optimization): optimizing to be cited or paraphrased inside AI -generated 
+
+responses from ChatGPT, Perplexity, Google AI Overviews, and similar tools. Goal: get chosen as a source 
+when an AI synthesizes its answer. 
+
+The three are additive, not competing. A platform that treats them as one continuous visibility problem — 
+rather than three separate tools — is the product opportunity. 
+
+2.2 Why bundle them into one product 
+
+GEO and AEO performance leans heavily on the same authority, structure, and relevance signals traditional SEO 
+already measures. A unified product's core defensibility is correlating all three signal types against the same 
+content and competitive set. 
+
+3. Market & Competitive Landscape 
+
+The competitive set splits into legacy SEO suites now bolting on AI-visibility features, and AI-native GEO/AEO 
+startups that lack deep traditional SEO tooling. No major player currently offers a genuinely unified, affordably -
+priced product spanning all three layers plus content generation. 
+
+3.1 Comparable tools and pricing (2026) 
+
+Tool 
+
+Ahrefs 
+
+Category 
+
+Starting price 
+
+Notes 
+
+Traditional SEO 
+suite 
+
+$29–$1,499/mo  (4 
+tiers) 
+
+New 2026 low-end Starter tier (100 credits, 1 
+project); no free trial; limited AI-visibility 
+features 
+
+Semrush 
+
+SEO + AI toolkit 
+
+~$165/mo (Pro) 
+
+Broader feature set incl. AI search tracking; free 
+tier capped at 10 searches/day 
+
+Peec AI 
+
+GEO/AEO tracker  ~$95/mo 
+
+SMB-focused; 3 of 6 AI engines on entry tier 
+
+Otterly.AI 
+
+GEO/AEO tracker  $25–$489/mo 
+
+Profound 
+
+GEO/AEO tracker  ~$99/mo (ChatGPT 
+
+only) up to 
+enterprise 
+
+Lightweight entry tier; mid-market tiers scale 
+with prompt volume 
+
+Strong e-commerce focus; widest engine 
+coverage at enterprise tier 
+
+AthenaHQ / 
+Scrunch AI 
+
+Enterprise GEO 
+platform 
+
+Enterprise (custom) 
+
+Positioned for large brands/agencies, not solo 
+or small-team budgets 
+
+3.2 The gap 
+
+•  Entry-level AI-visibility tools ($12-$99/mo) track citations but do little else. 
+
+•  Mid-market and enterprise tools ($189-$489+/mo) are priced for agencies and large brands, not solo 
+
+creators or small consultancies. 
+
+•  No prominent tool combines tracking + audit + AI-assisted content generation + competitive citation 
+
+analysis in one subscription at solo/consultant-friendly pricing. 
+
+•  This is the wedge: enter at the affordable end with a genuinely complete feature set, then expand 
+
+upmarket as the product and data moat mature. 
+
+4. Target Users 
+
+ 
+A dual entry motion — solo creators/small business owners and independent marketing consultants/small 
+agencies — with an explicit roadmap to in-house marketing teams at mid/large companies once the product has 
+the depth that segment requires. 
+
+4.1 Phase 1 personas 
+
+•  Solo creator / small business owner — non-technical, wants clear, actionable guidance without hiring an 
+
+agency. 
+
+•  Marketing consultant / small agency — manages 3-15 client sites, needs fast audits/reports, white-label 
+
+reporting, per-client cost efficiency. 
+
+4.2 Phase 2 persona (roadmap, not MVP) 
+
+•  In-house marketing team at a mid/large company — needs multi-seat collaboration, SSO, integrations, 
+
+approval workflows, enterprise reporting/SLA. 
+
+4.3 Business model clarification 
+
+Plutoscope is a single-vendor SaaS, not a white-label/reseller product. “Consultant” and “Agency” above 
+describe pricing tiers for external customers who manage multiple client projects under their own account — 
+they are not licensees rebranding or reselling Plutoscope as their own product. Plutoscope itself is the one 
+company operating the platform, with its own internal admin layer able to access any customer account for 
+support and troubleshooting (see Part III §18.1 for the impersonation architecture this requires). 
+
+5. Core Product: Four Pillars 
+
+The product spans four capabilities: monitoring, auditing, generation, and competitive analysis, sharing a 
+common data layer so insights compound across features. 
+
+5.1 Tracking & Monitoring Dashboard 
+
+•  Keyword and prompt-based tracking across Google rankings (SEO), featured snippets/voice answers (AEO), 
+
+and citation frequency across AI engines (GEO). 
+
+•  Historical trend charts per engine, with alerts on significant visibility drops or gains. 
+
+•  Share-of-voice score blending SEO rank, AEO answer capture, and GEO citation rate into one visibility index. 
+
+5.2 Content Audit & Optimization 
+
+•  Technical SEO checks via existing crawling APIs. 
+
+•  AEO readiness scoring: content structured for snippet/voice extraction. 
+
+•  GEO readiness scoring: factual clarity, citations/sources, schema markup, freshness signals.  
+
+5.3 Content Generation 
+
+•  Generates content briefs from tracked topic/prompt gaps. 
+
+•  Drafts FAQ and structured-answer blocks formatted for AEO/GEO extraction. 
+
+•  Human-in-the-loop by design: drafts and briefs, not auto-published content. 
+
+5.4 Competitive & Citation Analysis 
+
+•  Competitor citation share across AI engines for shared prompt/topic sets. 
+
+•  Gap analysis: topics competitors are cited for that the user is not. 
+
+•  Source-of-truth tracing where visible. 
+
+6. MVP Scope vs. Roadmap (original) 
+
+Superseded: Kept for historical context. Treat Part III's spec as the current MVP definition. 
+
+6.1 MVP (Phase 1, original) 
+
+•  Single-project tracking for up to 3 domains, covering Google rankings + 3 major AI engines (ChatGPT, 
+
+Perplexity, Google AI Overviews). 
+
+•  Automated audit report per page. 
+
+•  Content brief generator plus AI drafting for FAQ/answer blocks. 
+
+•  Basic competitive view: up to 3 tracked competitors per project. 
+
+•  Consultant mode: multi-client switcher and white-label PDF reports. 
+
+6.2 Phase 2 (Agency depth) 
+
+•  Expanded engine coverage, higher project/competitor limits. 
+
+•  Team seats, role-based permissions, client billing/reporting automation. 
+
+•  API access and integrations. 
+
+6.3 Phase 3 (Enterprise) 
+
+•  SSO, audit logs, custom data retention, dedicated support/SLA. 
+
+•  Workflow/approval chains, brand voice controls at scale. 
+
+•  Custom reporting and BI export. 
+
+7. Pricing & Subscription Strategy 
+
+Pricing should undercut the mid-market GEO tools ($189-$489/mo)  while offering more breadth than the cheap, 
+narrow entry-level trackers ($12-$99/mo). 
+
+7.1 Proposed tiers (subject to validation) 
+
+Tier 
+
+Free 
+
+Target user 
+
+Indicative price 
+
+Includes 
+
+Prospective users, trust-
+building 
+
+$0 
+
+1 domain, weekly SEO snapshot, limited 
+AEO/GEO citation check (no history) 
+
+Tier 
+
+Target user 
+
+Indicative price 
+
+Includes 
+
+Starter 
+
+Solo creator / small 
+business 
+
+$39–$59/mo 
+
+3 domains, 3 AI engines, weekly tracking, 
+audit reports, basic content briefs 
+
+Consultant 
+
+Independent consultant 
+/ small agency 
+
+$99–$149/mo 
+
+10 client projects, white-label reports, all 
+MVP engines, content generation, 
+competitor tracking 
+
+Agency 
+
+Growing agency (Phase 
+2) 
+
+$249–$399/mo 
+
+Team seats, expanded engines, 
+integrations, API access 
+
+Enterprise 
+
+In-house team (Phase 3)  Custom 
+
+SSO, SLA, custom reporting, workflow 
+approvals 
+
+See Part III §17.2 for the underlying AI-API unit economics behind these tiers' gross margin. 
+
+8. Go-to-Market 
+
+•  Lead with the unified visibility index as the core differentiator. 
+
+•  Content/SEO-led acquisition; publish original GEO citation-rate research. 
+
+•  Target consultant/agency communities directly. 
+
+•  Free tier and a generous first-audit report as the top-of-funnel wedge. 
+
+9. Key Risks & Open Questions 
+
+•  Data sourcing: addressed in Part II. 
+
+•  Category volatility: AI answer engines change ranking/citation behavior frequently. 
+
+•  Differentiation durability: incumbents with more capital can copy the bundling idea quickly.  
+
+•  Content-generation liability: keep AI-drafted content recommendation-first (human-in-the-loop). 
+
+ 
+ 
+PART II 
+
+Technical Feasibility: AI Citation Data 
+
+Findings on how to actually get GEO/AEO citation data, and what that means for MVP scope. 
+
+← Back to Contents 
+
+10. Bottom Line 
+
+Data access is better than the original plan assumed for two of the three MVP engines, but materially riskier for 
+the third — and that third one (Google AI Overviews) is the single most important engine to track, since AI 
+Overviews now trigger on roughly half of Google searches. 
+
+•  ChatGPT and Perplexity both expose citations as official, first-party API data. Low cost, low legal risk, build 
+
+on these immediately. 
+
+•  Gemini's API also exposes official grounding citations, and can serve as a compliant proxy for “Google's AI -
+
+grounded answers” generally. 
+
+•  Google AI Overviews has no official third-party API. Google sued a major SERP API provider (SerpApi) in 
+December 2025 over unlawful scraping, while also deploying JS challenges (“SearchGuard”) that raise 
+DMCA exposure for anyone who circumvents them. 
+
+•  Recommendation: build the MVP on the three low-risk official sources first (OpenAI, Perplexity, Gemini), 
+
+treat Google AI Overview tracking as a separate, explicitly flagged phase -2 decision with vendor risk 
+disclosed to users. 
+
+11. Per-Engine  Findings 
+
+Engine 
+
+Official data channel? 
+
+Cost 
+
+Legal/ToS risk 
+
+ChatGPT (OpenAI) 
+
+Yes — Responses API 
+web_search tool returns 
+url_citation annotations natively 
+
+Perplexity 
+
+Yes — Sonar/Sonar Pro API 
+returns citations as standard 
+response metadata 
+
+$10  per 1,000 calls plus 
+token costs (GPT-4o: 
+$2.50/M input, $10/M 
+output) 
+
+Sonar: $1/M input, 
+$1/M output tokens, 
+plus a $5–14  per 1,000 
+request fee 
+
+Low — first-party API, 
+fully within OpenAI's 
+ToS 
+
+Low — first-party API, 
+fully within 
+Perplexity's ToS 
+
+Engine 
+
+Official data channel? 
+
+Cost 
+
+Legal/ToS risk 
+
+Gemini (Google) 
+
+Yes — Gemini API “grounding 
+with Google Search” returns 
+groundingMetadata 
+
+5,000  grounded 
+prompts/month free 
+(Gemini 3.x, account-
+wide), then $14 per 
+1,000  queries 
+
+Low — first-party API, 
+fully within Google's 
+ToS 
+
+Google AI Overviews 
+(on google.com) 
+
+No public API for competitor 
+tracking; Search Console 
+impression data (June 2026) 
+covers only your own verified 
+domain 
+
+Third-party SERP 
+vendors (DataForSEO, 
+SerpApi, Searlo, Apify) 
+charge roughly $1–1.20 
+per 1,000 requests 
+
+Bing Copilot / 
+Microsoft 
+
+Not yet researched 
+
+Unknown 
+
+Elevated — active 
+Google v. SerpApi 
+lawsuit (Dec 2025); JS 
+“SearchGuard” 
+challenges raise DMCA 
+exposure if 
+circumvented 
+
+Unknown — treat as 
+open question 
+
+12. Why This Changes  the MVP Scope 
+
+The original plan's MVP (Part I §6.1) listed “Google rankings + 3 major AI engines (ChatGPT, Perplexity, Google AI 
+Overviews)” as if all  three AI engines were equally buildable. They're not. ChatGPT and Perplexity are safe, well-
+documented, first-party integrations available today. Google AI Overviews is the one competitors already track, 
+but they do so by taking on scraping risk that just escalated. 
+
+This doesn't kill the product, but it changes how to approach Google AI Overviews: as a deliberate, disclosed, 
+vendor-outsourced risk, not a first-party build. 
+
+13. Revised MVP Recommendation 
+
+13.1 Build first (low risk, official APIs) 
+
+•  ChatGPT citation tracking via OpenAI's Responses API web_search tool. 
+
+•  Perplexity citation tracking via the Sonar API. 
+
+•  Gemini citation tracking via Google's own grounding API. 
+
+13.2 Add deliberately (elevated risk, vendor-mediated) 
+
+•  Google AI Overview tracking via a third-party SERP data vendor. Disclose the vendor dependency to users. 
+
+•  Build the data layer so this source can be swapped or removed without a re -architecture. 
+
+13.3 Defer 
+
+•  Bing Copilot and other engines — not evaluated yet. 
+
+ 
+14. Rough AI-API Cost Model (directional  only) 
+
+For a Starter-tier user tracking 3 domains × ~20 prompts/topics × weekly refresh, AI-API costs alone run roughly 
+$7-10/month per project across the three official engines — see Part III §17.2 for the full unit-economics 
+breakdown, and §17.1 for the infrastructure cost layered on top at each growth stage. 
+
+ 
+PART III 
+
+MVP Feature  & Technical  Spec 
+
+The authoritative build spec: architecture, a costed and scalable stack, data model, tracking 
+methodology, screens, and a timed build sequence. 
+
+← Back to Contents 
+
+15. Scope of This Spec 
+
+This translates the MVP scope, narrowed by Part II's findings, into something buildable: a data model, per-
+engine tracking methodology, core screens, and a recommended, cost-modeled, scalable stack. Google AI 
+Overview tracking is intentionally left out of this MVP spec. 
+
+15.1 MVP feature list (confirmed scope) 
+
+•  Track up to 3 domains per account across Google organic rankings + 3 AI engines (ChatGPT, Perplexity, 
+
+Gemini). 
+
+•  Per-page SEO/AEO/GEO readiness audit with prioritized recommendations. 
+
+•  Content brief generator from tracked citation gaps, plus AI-drafted FAQ/answer blocks (human-in-the-
+
+loop). 
+
+•  Competitive view: up to 3 tracked competitors per project. 
+
+•  Consultant mode: multi-client project switcher, exportable white-label PDF reports. 
+
+16. System Architecture (high level) 
+
+Four logical layers: a scheduler that runs tracked prompts against each engine's API, a normalizer that extracts 
+citations/rankings into a common schema, a scoring/analysis layer, and the application layer that reads from 
+that data. 
+
+[Scheduler/Cron] -> [Engine Adapters: OpenAI | Perplexity | Gemini | Google SERP]  -> [Normalizer] -> 
+[Postgres: citations, rankings, scores] -> [App/API layer] -> [Dashboard, Reports, Content Generator] 
+
+Each engine adapter is isolated so engines can be added, removed, or swapped without touching the scoring or 
+app layers. 
+
+17. Recommended  Stack & Cost (scalable, staged) 
+
+The stack is chosen so it can grow through three stages — MVP/beta, growth, and enterprise scale — by 
+upgrading or swapping individual components, not by rearchitecting. Figures below are illustrative, based on 
+
+current 2026 published pricing, and should be re-validated against actual usage before being treated as 
+committed budget. 
+
+17.1 Stack by Growth Stage 
+
+Stage 
+
+Est. scale 
+
+Stack components 
+
+Stage 1 — MVP / 
+Beta 
+
+<100 accounts 
+
+Stage 2 — Growth 
+
+Hundreds to low 
+thousands of accounts; 
+Agency tier live 
+
+Stage 3 — 
+Enterprise scale 
+
+10,000+ accounts / 
+large multi-seat 
+customers 
+
+Supabase Pro ($25/mo + 
+compute credit); Vercel Pro (~2 
+seats); Postgres cron / Supabase 
+Edge Functions for scheduling; 
+no dedicated queue yet; Upstash 
+Redis free/low tier optional 
+
+Supabase Team ($599/mo) or 
+Pro with upgraded compute; 
+Vercel Pro scaling with 
+bandwidth/functions; dedicated 
+job queue (Inngest or 
+Trigger.dev); Upstash Redis paid 
+tier for caching 
+
+Supabase Enterprise (dedicated 
+compute, read replicas, 
+SOC2/HIPAA); Vercel Enterprise 
+(committed-use pricing); 
+dedicated worker fleet for 
+scheduling; Redis/cache at scale; 
+possible per-customer database 
+isolation 
+
+Est. monthly infra cost 
+(excl. AI-API usage) 
+
+~$100–150/month 
+
+~$1,000–1,700/month 
+
+~$5,000–13,000+/month 
+
+Vercel's published Enterprise floor sits around $20,000/year (~$1,700/month) once a customer needs SSO, a 
+signed DPA/BAA, or committed-use discounts; Supabase's Team plan ($599/month) is the natural mid-point 
+before a full Enterprise negotiation. These numbers exclude AI-API usage costs, which are modeled separately 
+below since they scale with tracked-prompt volume, not account count. 
+
+17.2 AI API Unit Economics (illustrative, per tracked project) 
+
+Baseline assumption: one tracked project = 3 domains × ~20 prompts/topics × weekly refresh = ~240 tracking 
+runs/month per engine, ~720 total across the three MVP engines. 
+
+ 
+Engine 
+
+Est. 
+calls/month 
+
+Est. cost/month 
+
+Basis 
+
+OpenAI 
+(web_search tool) 
+
+240 
+
+~$3.50–4.50 
+
+Perplexity (Sonar) 
+
+240 
+
+~$1.50–2.50 
+
+Gemini (grounding)  240 
+
+~$0–3.50 
+
+Total per project 
+
+~720 
+
+~$7–10/month 
+
+$10/1,000-call  fee (~$2.40) plus GPT-4o token 
+costs ($2.50/M input, $10/M output) at typical 
+citation-response lengths 
+
+$1/M input + $1/M output tokens, plus a $5–14 
+per 1,000 request fee 
+
+First 5,000  grounded prompts/month free 
+account-wide (Gemini 3.x); $14/1,000 queries 
+beyond that — cost only appears once combined 
+usage across all customers exceeds the shared 
+free quota 
+
+Directional estimate — validate against real 
+topic-expansion size and refresh cadence before 
+finalizing tier pricing 
+
+Against a $39-59/month Starter price covering one project, this leaves roughly $30-50/month of gross margin 
+before infra allocation and support cost — healthy, but it compresses quickly if topic count or refresh frequency 
+grows past the 20-prompts/weekly baseline. Cap or meter those two levers per tier rather than leaving them 
+unlimited. 
+
+17.3 Scalability Triggers & Migration Path 
+
+The stack is designed to change incrementally, triggered by specific signals rather than a fixed calendar date:  
+
+•  Dashboard reads start contending with tracking-run write volume (sustained high DB CPU) → add a 
+
+Supabase read replica; split dashboard/report reads from ingestion writes. 
+
+•  Scheduled tracking runs exceed what a simple cron dispatcher can complete in its window (roughly tens of 
+thousands of runs/day) → move from Postgres cron/Edge Functions to a dedicated job queue (Inngest or 
+Trigger.dev) with concurrency control. 
+
+•  Multiple tracked accounts query overlapping (engine, prompt) pairs (competitors tracking each other, 
+
+popular shared topics) → add a Redis cache (Upstash) to serve recent identical queries from cache instead 
+of re-billing the AI APIs — this directly shrinks the largest variable cost line. 
+
+•  Raw API response storage bloats the primary database → archive raw_response payloads to object storage 
+
+(Supabase Storage/S3), keep only normalized Citation rows in Postgres. 
+
+•  A single large customer's usage threatens to degrade service for others → introduce per-tenant rate 
+
+limiting and usage-based metering (also needed for Enterprise billing). 
+
+•  Compliance asks appear from Enterprise prospects (SOC2/HIPAA/BAA) → move to Supabase 
+
+Team/Enterprise; consider dedicated/isolated database instances for the largest or most sensitive 
+customers. 
+
+ 
+•  Serverless costs grow faster than traffic value → revisit Vercel's committed-use Enterprise pricing, or move 
+
+the heaviest scheduled workloads off pay-per-invocation functions onto reserved compute where 
+sustained utilization is cheaper. 
+
+18. Data Model (core entities) 
+
+Entity 
+
+Account 
+
+Key fields 
+
+Notes 
+
+id, tier, seats, billing_status 
+
+Project 
+
+id, account_id, domain, label 
+
+One per subscriber; consultant tier 
+holds multiple projects 
+
+Represents one tracked brand/domain 
+(up to 3 in Starter, up to 10 client 
+projects in Consultant tier) 
+
+Competitor 
+
+id, project_id, domain 
+
+Up to 3 per project in MVP 
+
+Topic/Prompt 
+
+id, project_id, text, expanded_prompt_set  User-entered topic expands into a set 
+
+TrackingRun 
+
+id, project_id, engine, prompt_id, run_at, 
+raw_response 
+
+Citation 
+
+id, tracking_run_id, cited_domain, 
+position, snippet 
+
+VisibilityScore 
+
+id, project_id, date, seo_score, aeo_score, 
+geo_score, blended_index 
+
+AuditReport 
+
+id, project_id, page_url, seo_findings, 
+aeo_findings, geo_findings, 
+recommendations 
+
+ContentBrief 
+
+id, project_id, topic_id, gap_summary, 
+draft_content 
+
+StaffUser 
+
+id, email, role 
+(support/engineering/super_admin) 
+
+of tracked prompts/queries 
+
+One row per (prompt × engine × 
+schedule tick); stores raw API response 
+for auditability 
+
+Normalized extraction from 
+raw_response — one row per source 
+cited in that run 
+
+Computed rollup per project per 
+period, feeds the dashboard trend 
+charts 
+
+Generated per audited page 
+
+Generated from citation gaps; 
+draft_content is human-reviewed 
+before use 
+
+Internal Plutoscope team accounts — 
+a separate auth realm from customer 
+Account records, never mixed into the 
+same table 
+
+Entity 
+
+Key fields 
+
+Notes 
+
+ImpersonationSession 
+
+id, staff_user_id, target_account_id, 
+started_at, ended_at, reason 
+
+Audit-logged record of every time a 
+staff member accesses a customer 
+account; see §18.1 
+
+18.1 Admin & Support Access (Impersonation) 
+
+Because Plutoscope is a single-vendor SaaS with a central team supporting every customer account (not a white -
+label product resold by independent agencies), the platform needs a built-in way for staff to access any 
+customer's account for troubleshooting — without ever needing a customer's password. 
+
+•  StaffUser accounts live in a separate auth realm from customer Account records, so a support/engineering 
+
+permission bypass can never be confused with or accidentally granted to a customer login.  
+
+•  “Login as” works by minting a scoped, time-limited session for the target account server-side (using the 
+
+Supabase service-role key, never exposed client-side) — not by knowing or resetting the customer's actual 
+credentials. 
+
+•  Every impersonation event writes an ImpersonationSession row automatically: who, which account, when, 
+
+and why (a reason/ticket reference) — this is the audit trail, not optional logging. 
+
+•  Row Level Security policies should be designed from Week 1 (Part VIII §43) to include a verified -staff-
+session bypass path via a security-definer function, rather than relying solely on auth.uid() checks — 
+retrofitting an admin bypass into RLS after the fact is materially more error-prone than designing for it up 
+front. 
+
+•  UX requirement: an unmissable persistent banner during impersonation ("Viewing as [Account Name] — 
+Admin Session — End Session"), and sessions auto-expire (e.g., 30-60 minutes) rather than persisting 
+indefinitely. 
+
+•  Default to read-only access during impersonation, with an explicit, separately-logged elevated mode 
+
+required for any write action — this limits blast radius if a staff session is ever compromised. 
+
+Open question: Whether to disclose impersonation events to customers (e.g., a visible entry in their own 
+account activity log) is a trust/compliance decision worth making deliberately — some SaaS products show 
+this transparently, others treat routine support access as undisclosed. Decide before this goes into the Terms 
+of Service or Privacy Policy, and before Milestone 5 builds the admin console (Part VIII §48).  
+
+19. Per-Engine  Tracking Methodology 
+
+19.1 ChatGPT (OpenAI) 
+
+•  Call the Responses API with the web_search tool enabled for each tracked prompt.  
+
+•  Parse url_citation annotations from the response into Citation rows. 
+
+•  Store the full raw response in TrackingRun for auditability. 
+
+19.2 Perplexity 
+
+ 
+•  Call the Sonar (or Sonar Pro) API per tracked prompt. 
+
+•  Citations arrive as structured metadata already — minimal parsing required. 
+
+19.3 Gemini 
+
+•  Call the Gemini API with Google Search grounding enabled. 
+
+•  Extract groundingChunks and groundingSupports into Citation rows. 
+
+19.4 Google organic rankings (traditional SEO, non-AI) 
+
+•  Use an existing rank-tracking API/vendor rather than building a Google SERP scraper in-house. 
+
+20. Core Screens (MVP) 
+
+Screen 
+
+Purpose 
+
+Key elements 
+
+Dashboard 
+
+Project setup 
+
+Audit report 
+
+At-a-glance visibility across all 
+tracked projects 
+
+Blended visibility index trend, per-engine 
+breakdown, alerts on significant drops/gains 
+
+Add a domain, define 
+topics/prompts, add competitors 
+
+Domain input, topic-to-prompt expansion 
+preview, competitor list (max 3) 
+
+Per-page SEO/AEO/GEO 
+readiness 
+
+Score breakdown, prioritized fix list, before/after 
+tracking 
+
+Competitive view 
+
+Compare citation share vs. 
+competitors 
+
+Shared prompt set table, gap list 
+
+Content brief / 
+generator 
+
+Consultant client 
+switcher 
+
+Turn a gap into a draft 
+
+Gap context alongside AI-drafted brief/FAQ 
+block, edit-and-approve flow 
+
+Move between client projects 
+
+Project list/search, per-client white-label PDF 
+export 
+
+Admin console 
+(internal, staff-only) 
+
+Support/troubleshooting access 
+to any customer account 
+
+Account search, “login as” trigger with reason 
+field, live impersonation banner, full 
+ImpersonationSession audit log — see §18.1 
+
+21. Suggested Build Sequence  (with time estimates) 
+
+Estimates assume a small dedicated build team working steadily; an AI coding agent working continuously may 
+compress these — treat the figures as effort-based, not a hard calendar floor. See Part VI and Part VIII for how 
+this maps onto an actual calendar. 
+
+•  Milestone 1 (~3 weeks) — Data spine: Supabase schema, one engine adapter (start with Perplexity — 
+
+lowest integration effort), scheduler running on a single test project. 
+
+ 
+•  Milestone 2 (~4 weeks) — Add OpenAI and Gemini adapters; build the blended visibility index and 
+
+dashboard. 
+
+•  Milestone 3 (~4 weeks) — Audit report generation (SEO/AEO/GEO scoring per page) and competitive gap 
+
+view. 
+
+•  Milestone 4 (~4 weeks) — Content brief generator and consultant multi-project mode with PDF export. 
+
+•  Milestone 5 (~3 weeks) — Billing/subscription wiring (Starter/Consultant tiers) and onboarding flow. 
+
+Total: roughly 18-21  weeks (~4.5-5 months) from kickoff to a feature-complete MVP, before beta and launch. 
+
+22. Open Engineering  Questions 
+
+•  Confirm rate limits and current pricing for OpenAI's web_search tool, Perplexity Sonar, and Gemini 
+
+grounding at expected MVP query volumes before finalizing unit economics. 
+
+•  Decide on the rank-tracking vendor for traditional Google SEO data. 
+
+•  Define exact topic-to-prompt expansion logic — this directly drives per-user API cost and needs a hard cap 
+
+per tier. 
+
+•  Revisit whether/how to add Google AI Overview tracking once the vendor-risk decision from Part II is 
+
+made. 
+
+•  Re-check Supabase/Vercel/OpenAI/Perplexity/Gemini pricing pages before finalizing budget — all figures in 
+
+§17 are current as of mid-2026 and change over time. 
+
+•  Decide whether impersonation access is disclosed to customers (see §18.1) before writing the Terms of 
+
+Service/Privacy Policy. 
+
+ 
+PART IV 
+
+User Validation Kit 
+
+Outreach messages and a discovery interview script for testing pricing and the unified visibility index 
+concept with real users. 
+
+← Back to Contents 
+
+23. How to Use This 
+
+Goal: 20-30 minute conversations with 5 solo creators/small business owners and 5-10 independent 
+consultants/small agencies. You're not pitching — you're listening. The two things you most need to learn: 
+whether the unified SEO+AEO+GEO visibility score is something people actually want, and whether the proposed 
+pricing matches what they'd actually pay. 
+
+24. Outreach  Messages 
+
+24.1 To solo creators / small business owners 
+
+Subject: 15 min on how you handle SEO/AI search visibility? 
+
+Hi [Name] — I'm exploring a tool that tracks how visible your content is not just on Google, but in ChatGPT and 
+other AI answers, and I'd love 15-20 minutes to hear how you currently handle this (or don't). No pitch, just 
+trying to learn from people who'd actually use something like this. Would you have time this week or next? 
+Happy to work around your schedule. 
+
+24.2 To consultants  / small agencies 
+
+Subject: Quick call re: how you're tracking AI search visibility for clients? 
+
+Hi [Name] — I'm scoping out a tool for tracking and reporting on client visibility across Google, AI Overviews, 
+ChatGPT, and Perplexity, aimed at consultants managing multiple client sites. Before building anything I want 
+to understand how you currently handle this for clients and what reporting actually needs to look like. Could I 
+grab 20-30 minutes? Genuinely just want to learn — not selling anything yet. 
+
+25. Discovery Interview  Script 
+
+25.1 Warm-up (2-3 min) 
+
+1.  Tell me a bit about what you're working on right now and how content/marketing fits into that.  
+
+ 
+ 
+2.  Walk me through how you currently think about getting found — Google, AI tools, wherever people 
+
+discover your (or your clients') content. 
+
+25.2 Current pain (5 min) 
+
+3.  What do you currently use to track how you're doing in search? 
+
+4.  Have you noticed anything about how ChatGPT, Perplexity, or Google's AI answers treat your content — 
+
+cited, ignored, don't know? 
+
+5.  What's the most frustrating or confusing part of figuring out whether your SEO efforts are actually working 
+
+right now? 
+
+25.3 Concept reaction — unified visibility index (7-8 min) 
+
+Describe the concept in plain language, then ask for their gut reaction, whether it would change daily behavior, 
+what would make them trust or distrust the score, and (for consultants) whether it would help explain value to 
+clients. 
+
+25.4 Pricing gut-check (5 min) 
+
+6.  At what price would this feel like a steal — a no-brainer buy? 
+
+7.  At what price would you start to hesitate? 
+
+8.  At what price would it feel too expensive to even consider? 
+
+9.  At what price would you assume it's too cheap to be any good? 
+
+Then reveal the proposed tiers and ask for an honest reaction. 
+
+25.5 Feature priority and wrap-up 
+
+Ask them to rank the four pillars (tracking, audit, content generation, competitor comparison) by what they'd 
+actually use first, then ask if they know others worth talking to and whether they'd try an early beta.  
+
+26. What to Listen For / Synthesis Template 
+
+Signal 
+
+What it means 
+
+They describe the AI-citation 
+problem unprompted 
+
+“Interesting, but I wouldn't 
+check it often” 
+
+Pricing hesitation clusters below 
+proposed tiers 
+
+Consultants ask about white-
+label/reporting unprompted 
+
+Strong demand signal — the pain is already felt 
+
+Weak pull — may indicate a feature, not a subscription reason 
+
+Revisit pricing before building — cheap to fix now, expensive after launch 
+
+Confirms reporting is a must-have for that segment 
+
+After each call, capture: persona, current process, gut reaction to the visibility index (1-10), pricing 
+hesitation/ceiling, feature ranking, and best verbatim quote. After 10-15 interviews, look for patterns across 
+sheets before revising pricing or scope again. 
+
+ 
+ 
+PART V 
+
+20-Year  Feature  Roadmap 
+
+From visibility tracker to AI-era marketing operating system — organized into four horizons, all 
+extending the same core data model. 
+
+← Back to Contents 
+
+27. How to Read This Roadmap 
+
+The MVP tracks citations across three engines and scores a page's SEO/AEO/GEO readiness — a narrow, 
+defensible starting point, not the ceiling. What follows is organized into four horizons, from features realistically 
+prototyped in the next few years to genuinely speculative 15-20 year bets. Every entry states how it plugs into 
+the existing data spine (Project, Competitor, Topic/Prompt, TrackingRun, Citation, VisibilityScore, AuditReport, 
+ContentBrief) so this stays one connected app that grows outward. 
+
+Grounding note: Horizon 2 entries extrapolate from things already happening in 2026: AI shopping agents 
+completing real purchases on ChatGPT/Gemini/Copilot, Google's Knowledge Graph increasingly gating AI 
+Overview inclusion, C2PA content-provenance credentials shipping at production scale, and AI companies 
+shifting toward paid "live access" licensing with publishers. Horizons 3 and 4 are directional thinking, flagged 
+as such. 
+
+28. Horizon 1 Features (Years 0-3) 
+
+Feature 
+
+What it does 
+
+Connects via 
+
+More engine 
+adapters 
+
+Add Bing Copilot, regional AI search 
+engines, and additional locales as they 
+mature 
+
+New rows in the existing 
+TrackingRun/Citation schema 
+
+Multi-language / 
+multi-region 
+tracking 
+
+Track performance per language/market, 
+not just per domain 
+
+Browser extension 
+
+One-click AEO/GEO readiness check while 
+browsing 
+
+Extends Project with a locale 
+dimension; VisibilityScore rolls up per 
+locale 
+
+Thin client calling  the existing audit API 
+
+Video & podcast 
+transcript 
+optimization 
+
+Score and improve transcripts/chapter 
+markers for AI extraction 
+
+New AuditReport sub-type using the 
+same scoring fields 
+
+Feature 
+
+What it does 
+
+Connects via 
+
+Local & map-pack AI 
+answer optimization 
+
+Track AI-generated local recommendations  New Topic/Prompt category tracked 
+
+through the existing pipeline 
+
+CMS / Zapier / Slack 
+integrations 
+
+Push audit findings and content briefs into 
+existing workflows 
+
+Thin integration layer reading from 
+AuditReport/ContentBrief 
+
+Mobile app 
+
+Push alerts on visibility drops/gains and 
+competitor movement 
+
+Reads existing VisibilityScore trend 
+data 
+
+29. Horizon 2 Features (Years 3-7) 
+
+Entity & Knowledge Graph Management 
+
+Google's Knowledge Graph holds 500 billion+ facts on 5 billion+ entities, and Gemini is trained on it — entity 
+clarity increasingly decides AI Overview/Gemini inclusion, independent of backlinks.  
+
+•  Connects via: a new Entity Profile object attached to Project, feeding a fourth score (entity_score) on 
+
+VisibilityScore. 
+
+Agent Commerce Optimization (ACO) 
+
+AI shopping agents are live and completing purchases on ChatGPT, Gemini, Copilot, and Perplexity via emerging 
+protocols (OpenAI's ACP, Google's UCP). Being recommended/selected by a shopping agent is a new, trackable 
+surface — a natural fourth pillar. 
+
+•  Connects via: a new engine-adapter type ("commerce agent") writing into the same TrackingRun/Citation 
+
+tables. 
+
+Content Provenance & Trust Layer 
+
+C2PA Content Credentials are backed by Google, Adobe, Microsoft, OpenAI, and Meta, deployed at production 
+scale (TikTok: 1.3B+ videos labeled). 
+
+•  Connects via: new fields on AuditReport (provenance_status, watermark_detected).  
+
+Hallucination & Misrepresentation Monitoring 
+
+Detecting when an AI answer gets facts about a brand wrong, with a correction-request workflow. 
+
+•  Connects via: accuracy_flag and correction_status fields added to Citation. 
+
+Voice & Ambient Answer Optimization 
+
+Extends AEO tracking to smart speakers, in-car assistants, and AI phone agents. 
+
+•  Connects via: new engine adapters under the existing AEO tracking category. 
+
+ 
+Licensing Marketplace for Long-Tail Creators 
+
+AI companies are shifting toward paid "live access" licensing deals with publishers (roughly 2 in 2023 growing to 
+a projected 34 in 2026), concentrated almost entirely among large publishers. The platform's aggregated 
+citation/traffic data across many small creators could become collective negotiating leverage. 
+
+•  Connects via: aggregates existing Citation/VisibilityScore data (opt-in) into a new Licensing Pool object — a 
+
+network-effect feature. 
+
+30. Horizon 3 Features (Years 7-15) 
+
+Feature 
+
+What it does 
+
+Connects via 
+
+Autonomous 
+marketing agent ("AI 
+CMO") 
+
+Publishes approved content and iterates based 
+on real-time citation feedback, within brand-
+voice/approval guardrails 
+
+Extends ContentBrief's human-in-
+the-loop flow into a supervised 
+autonomous loop 
+
+Agent-to-agent brand 
+representation 
+
+A persistent brand agent negotiates directly 
+with customers' shopping agents 
+
+Builds on the Horizon 2 
+commerce-agent adapter, adding 
+a negotiation layer 
+
+Predictive topic & 
+demand forecasting 
+
+Uses aggregated, anonymized citation-gap data 
+to predict trending topics before they're widely 
+asked 
+
+A model trained on aggregated 
+Topic/Prompt and Citation 
+history platform-wide 
+
+Cross-platform 
+reputation graph 
+
+Unifies SEO/AEO/GEO/ACO/social signals into 
+one persistent brand reputation score 
+
+A new top-level rollup above 
+VisibilityScore 
+
+31. Horizon 4 Features — Speculative  (Years 15-20) 
+
+Caveat: Informed extrapolations, not commitments. Revisit every few years as the underlying technology 
+actually materializes. 
+
+•  Spatial/AR answer optimization — if AR glasses and ambient AI assistants go mainstream, being "found" 
+
+may shift to an ambient annotation layered onto the physical world. 
+
+•  Fully autonomous marketing organization — the endpoint of Horizon 3's autonomous agent: minimal per-
+
+task intervention beyond a human-set strategy and constraints. 
+
+•  Persistent cross-device/cross-agent identity — modeling brand visibility against a single persistent user-
+
+agent relationship rather than isolated sessions. 
+
+32. Why This Stays One App 
+
+Every feature above — from Horizon 1's new engine adapters to Horizon 4's speculative spatial optimization — 
+plugs into the same five core objects defined in the MVP spec: Project, Competitor, Topic/Prompt, 
+
+ 
+TrackingRun/Citation, and VisibilityScore/AuditReport. New disciplines show up as new adapters, new fields, or 
+new rollup scores — not separate products with their own data models. 
+
+33. Suggested Feature  Sequencing 
+
+When 
+
+Build 
+
+Why this order 
+
+After MVP ships 
+
+Entity & Knowledge Graph scoring 
+(Horizon 2) 
+
+Clearest near-term commercial signal — 
+already measurably gating AI 
+Overview/Gemini inclusion today 
+
+Shortly after 
+
+Mid-term 
+
+Agent Commerce Optimization 
+(Horizon 2) 
+
+AI shopping agents are live now; early 
+movers get a data/positioning advantage 
+
+Content Provenance & Trust Layer, 
+Hallucination Monitoring (Horizon 2) 
+
+Lower build complexity, meaningful trust 
+differentiation 
+
+Once user base is 
+large enough 
+
+Licensing Marketplace, Predictive 
+Demand Forecasting (Horizon 2/3) 
+
+Network-effect features — need scale to be 
+valuable 
+
+Long-range 
+
+Autonomous agent, agent-to-agent 
+negotiation, spatial optimization 
+(Horizon 3/4) 
+
+Depend on platform maturity and external 
+technology that isn't there yet 
+
+ 
+ 
+PART VI 
+
+Build Timeline & Phased  Rollout 
+
+A concrete schedule from kickoff to MVP launch, then the long-range roadmap mapped onto rough 
+calendar time with gating criteria. 
+
+← Back to Contents 
+
+34. MVP Build Schedule 
+
+Building on Part III §21's milestone list, with a foundation phase and rough calendar placement (Part VIII gives 
+the week-by-week task breakdown): 
+
+Phase 
+
+Weeks 
+
+What happens 
+
+Phase 0 — Foundation 
+
+Weeks 1–3 
+
+Milestone 1 — Data spine 
+
+Weeks 4–6 
+
+Finalize schema design, scaffold Supabase + Next.js, 
+prototype the three official engine sources end-to-end, 
+begin user-validation interviews in parallel 
+
+Supabase schema live, Perplexity adapter working end-
+to-end on one test project, scheduler running 
+
+Milestone 2 — OpenAI + Gemini, 
+dashboard 
+
+Weeks 7–10 
+
+Remaining engine adapters live, blended visibility index 
+computed, dashboard functional 
+
+Milestone 3 — Audit + 
+competitive view 
+
+Weeks 11–14 
+
+SEO/AEO/GEO audit scoring per page, competitive gap 
+view 
+
+Milestone 4 — Content 
+generation + consultant mode 
+
+Weeks 15–18 
+
+Content brief generator, multi-client switcher, white-
+label PDF export 
+
+Milestone 5 — Billing + 
+onboarding 
+
+Weeks 19–21 
+
+Subscription tiers wired to a payment processor, 
+onboarding flow 
+
+Total: roughly 21 weeks (~5 months) from kickoff to a feature-complete MVP. 
+
+35. Launch & Beta Timeline 
+
+•  Weeks 20-24 (overlapping Milestone 5) — Private beta with the 10-15 users engaged through the Part IV 
+
+validation process; their feedback directly informs final pricing/copy before public launch.  
+
+•  Weeks 25-26 — Address beta feedback, finalize the pricing page and Starter/Consultant tier copy.  
+
+ 
+•  Weeks ~26-28 (~Month 6-7 from kickoff) — Public launch. 
+
+36. Long-Range  Rollout Timeline 
+
+Maps Part V's horizons onto rough calendar time from launch, each gated by a specific signal rather than a fixed 
+date: 
+
+Time from 
+launch 
+
+Horizon 
+
+What ships 
+
+Gate to proceed 
+
+Months 1-6 
+
+Horizon 1 
+
+Additional engines, browser 
+extension, integrations, mobile 
+alerts 
+
+Rolled out incrementally based 
+on direct user requests — no 
+hard gate 
+
+Year 1-2 
+
+Horizon 2 
+(early) 
+
+Entity & Knowledge Graph scoring, 
+then Agent Commerce 
+Optimization 
+
+MVP retention/usage data 
+confirms the core tracking loop is 
+sticky 
+
+Year 2-3 
+
+Horizon 2 (mid)  Content Provenance & Trust Layer, 
+
+Year 3-5 
+
+Horizon 2 (late) 
+/ Horizon 3 
+(early) 
+
+Year 5-10 
+
+Horizon 3 
+
+Hallucination Monitoring 
+
+Licensing Marketplace, Predictive 
+Demand Forecasting 
+
+Entity/ACO features show 
+measurable engagement 
+
+User base large enough for 
+network-effect features to have 
+real value 
+
+Autonomous marketing agent, 
+agent-to-agent negotiation, cross-
+platform reputation graph 
+
+Platform has enough historical 
+data and trust to support 
+autonomous action 
+
+Year 10-20 
+
+Horizon 4 
+
+Spatial/AR optimization, fully 
+autonomous marketing org 
+
+Speculative — revisit every few 
+years as AR/ambient computing 
+and agent standards actually 
+materialize 
+
+37. Master Timeline  Summary Table 
+
+Timeframe 
+
+Phase 
+
+Key deliverable 
+
+Gate to next phase 
+
+Weeks 1-3 
+
+Foundation 
+
+Schema, scaffold, engine 
+prototype, validation interviews 
+begin 
+
+Prototype confirms the three 
+official engines return usable 
+citation data 
+
+Weeks 4-21 
+
+MVP build 
+(Milestones 1-5) 
+
+Feature-complete MVP across all 
+four pillars 
+
+All five milestones pass internal 
+QA 
+
+ 
+Timeframe 
+
+Phase 
+
+Key deliverable 
+
+Gate to next phase 
+
+Weeks 20-26 
+
+Beta 
+
+Feedback from validation-kit 
+users 
+
+Beta users confirm 
+pricing/concept holds 
+
+~Month 6-7 
+
+Public launch 
+
+Starter + Consultant tiers live 
+
+First paying customers acquired 
+
+Months 1-6 
+post-launch 
+
+Year 1-3 
+
+Horizon 1 
+
+Horizon 2 
+(early/mid) 
+
+Breadth features (engines, 
+integrations, mobile) 
+
+Ongoing — demand-driven, no 
+hard gate 
+
+Entity/KG, Agent Commerce, 
+Provenance, Hallucination 
+monitoring 
+
+Retention data + engagement 
+on each prior feature 
+
+Year 3-10 
+
+Horizon 2 (late) / 
+Horizon 3 
+
+Licensing marketplace, 
+forecasting, autonomous agent, 
+reputation graph 
+
+Sufficient scale for network-
+effect features; platform trust 
+for autonomy 
+
+Year 10-20 
+
+Horizon 4 
+
+Spatial/AR optimization, fully 
+autonomous org (speculative) 
+
+External technology (AR, agent 
+standards) actually matures 
+
+ 
+ 
+PART VII 
+
+Team & Hiring Plan 
+
+Who to bring on, when, and with what skills — mapped onto the same build timeline and growth 
+stages already defined. 
+
+← Back to Contents 
+
+38. Core Build Team  (MVP Phase) 
+
+The MVP (Part VI §34, ~21 weeks) can realistically be built by a very small team, especially if a coding agent is 
+doing a meaningful share of the implementation. The roles below are the minimum needed to cover all four 
+product pillars and the costed stack in Part III §17. 
+
+•  Full-stack engineer — owns the Next.js/Supabase application layer: dashboard, project setup, screens, PDF 
+
+export. The primary role covering Milestones 2-5. 
+
+•  AI/backend integration engineer — owns the engine adapters (OpenAI, Perplexity, Gemini), the scheduler, 
+
+and the citation-normalization pipeline. The primary role covering Milestone 1 and the data spine 
+everything else depends on. Can be the same person as the full-stack engineer on a very small team, but is 
+the single most specialized skill set this build needs. 
+
+•  Product owner / founder — defines scope, runs the user-validation interviews (Part IV), makes pricing and 
+
+positioning calls (Part I §7). Likely you, not a hire. 
+
+•  Fractional product designer — the dashboard, audit reports, and white-label PDF exports are the product's 
+visible surface, especially for consultants who forward them to their own clients. Worth a contract designer 
+even on a lean build, brought in around Milestone 2 once screens (Part III §20) are being built. 
+
+39. Skills Matrix 
+
+Role 
+
+Core skills needed 
+
+Nice-to-have 
+
+Needed from 
+
+Full-stack engineer 
+
+Next.js/React, TypeScript, 
+Tailwind, SQL/Postgres, REST API 
+integration 
+
+Supabase specifically, Edge 
+Functions, Playwright for 
+testing 
+
+Week 1 (Milestone 
+1) 
+
+AI/backend 
+integration engineer 
+
+LLM API integration 
+(OpenAI/Google/Perplexity), 
+prompt engineering, data 
+normalization/ETL, job scheduling 
+
+Prior work with 
+citation/grounding/RAG-
+style APIs specifically 
+
+Week 1 (Milestone 
+1) 
+
+Role 
+
+Core skills needed 
+
+Nice-to-have 
+
+Needed from 
+
+Product designer 
+
+UI/UX for data-dense dashboards, 
+Figma, design systems 
+
+Experience designing 
+client-facing/white-label 
+reporting 
+
+Week 7 onward 
+(Milestone 2) 
+
+DevOps / infra (light 
+at MVP) 
+
+CI/CD basics, environment config 
+
+As-needed, mostly 
+Week 1 setup 
+
+Experience with Postgres 
+scaling, job queues 
+(Inngest/Trigger.dev) for 
+when Part III §17.3 triggers 
+hit 
+
+QA / testing 
+
+Manual test planning; can be 
+founder or engineers wearing this 
+hat at MVP scale 
+
+Automated end-to-end 
+testing (Playwright) 
+
+Ongoing from 
+Milestone 2 
+
+40. Team Composition by Growth Stage 
+
+Mirrors the infrastructure stages already defined in Part III §17.1  — the team should grow in step with the stack, 
+not ahead of it. 
+
+Stage 
+
+Timeframe 
+
+Team additions 
+
+Stage 1 — MVP / 
+Beta 
+
+Weeks 1-28 (build 
+through launch) 
+
+Stage 2 — Growth 
+
+Year 1-3 (Horizon 1 and 
+early Horizon 2) 
+
+Stage 3 — Enterprise 
+scale 
+
+Year 3+ (Horizon 2 late / 
+Horizon 3) 
+
+1-2 full-stack/AI-integration engineers, 1 
+fractional product designer, founder 
+covering product/validation/GTM 
+
+Add a dedicated backend/data engineer 
+(job queue, caching, Entity/Knowledge 
+Graph pipeline), a growth/content 
+marketer, a customer success hire for 
+Consultant-tier volume, part-time 
+security/DevOps as Agency-tier and 
+early Enterprise prospects appear 
+
+Add ML/data science (predictive 
+forecasting, autonomous agent work), 
+dedicated security/compliance 
+(SOC2/HIPAA for Enterprise deals), 
+enterprise sales, dedicated SRE/infra 
+matching the Enterprise stack tier in Part 
+III §17.1 
+
+Approx. 
+team size 
+
+2-3 people 
+
+5-8 people 
+
+10-20+ 
+people 
+
+ 
+ 
+41. Build-vs-Buy / Working With a Coding Agent 
+
+Since a Claude agent is doing a meaningful share of the implementation, the human team's role shifts: less 
+about writing every line of code, more about direction, review, and the judgment calls an agent shouldn't make 
+alone. 
+
+•  Keep at least one technically fluent person (even part-time or a fractional CTO-style advisor) reviewing the 
+agent's architecture, security, and data-model decisions — particularly around authentication, billing, and 
+the multi-tenant consultant data model, where mistakes are expensive and not always obvious from the 
+output alone. 
+
+•  Treat the fractional product designer as non-optional rather than a nice-to-have: coding agents are 
+
+markedly less reliable at original visual/UX judgment than at implementation, and the dashboard/reports 
+are what consultant users will show their own clients. 
+
+•  Phase hiring to match Part VI/VIII's milestones rather than hiring the full team up front — bring on the AI-
+integration-focused skill set (or agent-review capacity) at Milestone 1, the designer at Milestone 2, and 
+defer Stage 2/3 roles until the corresponding infrastructure triggers in Part III §17.3 actually fire. 
+
+•  For contract/fractional roles (designer, security review), scope engagements against specific milestones 
+
+(e.g., "design the four MVP screens" rather than an open-ended retainer) to keep spend aligned with the 
+phased build. 
+
+•  For the agent itself, give it a project-level skill (a SKILL.md file in the repo's .claude/skills/ folder) for 
+repeatable patterns like "add a new engine adapter," rather than trying to mirror human job titles as 
+separate skills — a single full-stack agent session already covers frontend, backend, and API integration in 
+one context. 
+
+ 
+PART VIII 
+
+Detailed  Development  Timeline 
+
+Week-by-week developer task checklist, kickoff to public launch — the working sprint plan to build 
+from day to day. 
+
+← Back to Contents 
+
+42. How to Use This 
+
+This expands Part VI's milestone-level schedule into concrete, week-by-week developer tasks. Each milestone 
+ends with an acceptance checkpoint: a concrete, demoable thing that must be true before moving on. Weeks 
+assume a small dedicated team (1-2 engineers plus a fractional designer joining at Week 7); an AI coding agent 
+working continuously may compress elapsed time, but the task order and dependencies still apply — don't skip 
+ahead of a checkpoint. 
+
+Before Week 1: Confirm current OpenAI/Perplexity/Gemini API pricing and rate limits, and pick a payment 
+processor and a page-crawling API vendor (needed by Week 11) — both are quick decisions that block later 
+weeks if left open. 
+
+43. Phase 0 — Foundation (Weeks 1-3) 
+
+Goal: a working environment and confirmed data access, before any product feature work begins.  
+
+Week 1 — Environment & Infrastructure Setup 
+
+•  Create Supabase project (separate dev and staging environments). 
+
+•  Scaffold the Next.js app (TypeScript, Tailwind, ESLint/Prettier configured). 
+
+•  Configure Supabase Auth (email/password at minimum) and draft Row Level Security policies for account -
+level data isolation — this is the multi-tenant boundary the whole app depends on, get it right early. 
+
+•  Design the RLS policies to include a verified-staff-session bypass path from the start (Part III §18.1) — 
+Plutoscope is a single-vendor SaaS with internal admin/support access to any customer account, and 
+retrofitting that bypass into RLS later is far riskier than designing for it now. 
+
+•  Set up CI/CD: GitHub Actions (or equivalent) building on push, Vercel preview deployments per pull 
+
+request. 
+
+•  Set up environment/secrets management for OpenAI, Perplexity, and Gemini API keys (never commit keys; 
+
+use Vercel/Supabase environment variable stores). 
+
+•  Add error monitoring (e.g., Sentry) — cheap to add now, painful to retrofit later. 
+
+•  Write the first schema migration: Account and Project tables only. 
+
+Week 2 — Data Model & Engine Prototyping 
+
+•  Complete the full schema migration: Competitor, Topic/Prompt, TrackingRun, Citation, VisibilityScore, 
+
+AuditReport, ContentBrief tables, with RLS policies scoped to Account/Project ownership.  
+
+•  Design and test the topic-to-prompt expansion logic (one user topic → N tracked prompts) — cap the 
+
+expansion size per tier now, since it directly drives API cost (Part III §17.2). 
+
+•  Prototype a single OpenAI Responses API call with the web_search tool against a real query; confirm the 
+
+actual shape of the url_citation annotations returned. 
+
+•  Prototype a single Perplexity Sonar API call; confirm the citation metadata shape. 
+
+•  Prototype a single Gemini API grounding call; confirm the groundingChunks/groundingSupports shape.  
+
+•  Document all three observed response shapes in the codebase — this is the contract the normalizer in 
+
+Week 4+ will be built against. 
+
+Week 3 — Scheduler Foundation 
+
+•  Build a minimal scheduler: a Supabase Edge Function on a timed trigger that can enqueue and execute a 
+
+tracking job for one (project, topic, engine) tuple. 
+
+•  Decide and implement raw_response storage: Postgres jsonb column for MVP volume is fine; note in code 
+
+comments that this moves to object storage per Part III §17.3 once volume grows. 
+
+•  Scaffold empty frontend routes/pages for: Dashboard, Project Setup, Audit Report, Competitive View, 
+
+Content Brief, Consultant Switcher — placeholders only, no logic yet. 
+
+•  Parallel, non-blocking: send the first outreach messages from Part IV and begin scheduling interviews so 
+
+feedback starts arriving before major feature work locks in. 
+
+44. Milestone 1 — Data Spine + Perplexity Adapter (Weeks 4-6) 
+
+Week 4 — Perplexity Adapter 
+
+•  Build the Perplexity engine adapter: server-side function taking (project_id, prompt_id) → calls Sonar API 
+
+→ returns raw response. 
+
+•  Build the normalizer for Perplexity responses: raw response → Citation rows (domain, position, snippet).  
+
+•  Wire the adapter into the Week-3 scheduler so it runs on a defined interval for one fixed test project. 
+
+•  Build a minimal internal/admin view to inspect TrackingRun and Citation rows directly. 
+
+Week 5 — Project Setup Screen + Auth 
+
+•  Build the Project Setup screen: add a domain, add topics with a live prompt-expansion preview, add up to 3 
+
+competitors. 
+
+•  Wire Project Setup to the backend: creates real Project, Topic, Competitor records. 
+
+•  Build signup/login flow and account creation, scoped so each account owns its own projects under the 
+
+Week-1 RLS policies. 
+
+Week 6 — Integration & Milestone Close-Out 
+
+•  Run an end-to-end test: create a project through the real UI, let the scheduler fire, confirm citations land 
+
+correctly in the database. 
+
+•  Add basic error handling/logging around the adapter and scheduler (retries on API failure, dead -letter 
+
+logging for permanently failed runs). 
+
+•  Fix bugs surfaced by the end-to-end test. 
+
+Acceptance checkpoint: A real domain, entered through the UI, produces real Perplexity citation data in the 
+database without manual intervention. 
+
+45. Milestone 2 — OpenAI  + Gemini Adapters, Dashboard (Weeks  7-10) 
+
+Week 7 — Remaining Adapters 
+
+•  Build the OpenAI engine adapter (Responses API + web_search tool) with citation parsing, following the 
+
+Week-2 prototype contract. 
+
+•  Build the Gemini engine adapter (Search grounding) with groundingChunks/groundingSupports parsing.  
+
+•  Extend the scheduler to run all three engines per tracked topic. 
+
+•  Fractional designer engagement starts this week — begin the visual design pass on the Dashboard and 
+
+upcoming screens in parallel with backend work. 
+
+Week 8 — Scoring 
+
+•  Define the initial SEO/AEO/GEO scoring methodology (citation frequency, position-weighting, recency) — 
+
+get founder sign-off on the formula before building it. 
+
+•  Build the VisibilityScore computation job: aggregates Citation data per project per period into seo_score, 
+
+aeo_score, geo_score, and a blended_index. 
+
+Week 9 — Dashboard 
+
+•  Build the Dashboard screen: visibility index trend chart, per-engine breakdown, project list. 
+
+•  Add basic alerting: a highlighted dashboard indicator on significant score drops/gains.  
+
+Week 10 — Integration & Milestone Close-Out 
+
+•  Integration-test all three engines across at least 2 real test projects. 
+
+•  Apply the designer's visual pass to the Dashboard. 
+
+Acceptance checkpoint: The Dashboard shows real tracked data across ChatGPT, Perplexity, and Gemini for at 
+least two different test projects, with a visibly correct blended visibility index.  
+
+46. Milestone 3 — Audit + Competitive View (Weeks  11-14) 
+
+Week 11 — Audit Criteria & Crawling 
+
+•  Define the SEO/AEO/GEO audit rule set for a page (structured data present, heading structure, direct -
+
+answer paragraphs, citations/sources, content freshness, etc.). 
+
+•  Integrate the chosen third-party page-crawling API to fetch page content for audits — do not build a 
+
+crawler in-house. 
+
+Week 12 — Audit Engine & Screen 
+
+•  Build the audit scoring engine: runs crawled page content through the rule set, outputs a score plus 
+
+prioritized recommendations. 
+
+•  Build the Audit Report screen: score breakdown, prioritized fix list. 
+
+Week 13 — Competitive View 
+
+•  Build the Competitive View screen: shared prompt-set comparison table against up to 3 tracked 
+
+competitors. 
+
+•  Extend Citation queries to support project-vs-competitor gap analysis. 
+
+Week 14 — Testing & Milestone Close-Out 
+
+•  Validate audit scoring against a handful of real pages by hand. 
+
+•  Fix scoring or UI issues surfaced during validation. 
+
+Acceptance checkpoint: Running an audit on a real page produces recommendations a human would agree 
+with, and the competitive view correctly shows which topics a real competitor wins that the test project 
+doesn't. 
+
+47. Milestone 4 — Content Generation + Consultant Mode (Weeks 15-18) 
+
+Week 15 — Content Brief Generator 
+
+•  Build the ContentBrief generator: takes a citation gap → prompts an LLM with that gap as context → 
+
+produces a draft brief/FAQ block. 
+
+•  Build the Content Brief screen: gap context alongside the draft, with an edit-and-approve flow. 
+
+Week 16 — Consultant Multi-Project Mode 
+
+•  Extend the Account model to support multiple Projects per consultant-tier account. 
+
+•  Build the multi-client Project Switcher UI. 
+
+Week 17 — White-Label Export 
+
+•  Build server-side HTML-to-PDF export of a project's dashboard/audit summary. 
+
+•  Add basic branding customization (at minimum a logo upload) for white -label reports. 
+
+Week 18 — Testing & Milestone Close-Out 
+
+•  End-to-end test the full consultant flow: switch between 3 client projects, generate and export a branded 
+
+PDF report. 
+
+•  Fix issues surfaced during testing. 
+
+Acceptance checkpoint: A consultant-style account can switch between at least 3 client projects and export a 
+correctly branded white-label PDF report. 
+
+48. Milestone 5 — Billing + Onboarding (Weeks 19-21) 
+
+Week 19 — Payments & Tier Limits 
+
+•  Integrate the chosen payment processor (e.g., Stripe) for Starter and Consultant subscription tiers.  
+
+•  Wire tier limits (3 domains for Starter, 10 client projects for Consultant) into the Project-creation flow. 
+
+•  Build the internal Admin Console: StaffUser auth realm, account search, and the “login as” flow (Part III 
+
+§18.1) — needed before beta so the team can troubleshoot beta users' accounts directly.  
+
+Week 20 — Onboarding 
+
+•  Build the onboarding flow: signup → plan selection → guided first-project setup. 
+
+•  Build a basic account/billing settings screen. 
+
+•  Parallel: begin recruiting the 10-15 Validation Kit contacts into a private beta. 
+
+Week 21 — Regression & Production Prep 
+
+•  Full regression pass across every screen and flow built in Milestones 1-5. 
+
+•  Stand up a production environment separate from staging; set up production monitoring/alerts.  
+
+•  Fix any remaining bugs found during regression. 
+
+Acceptance checkpoint: A brand-new user can sign up, choose a paid plan, set up a project, and see real 
+tracked data within a single session, with no manual intervention from the team. 
+
+49. Beta & Launch (Weeks 20-28) 
+
+Beta recruiting overlaps Milestone 5 rather than waiting for it, so feedback starts arriving as early as possible.  
+
+Weeks 20-21 — Beta Onboarding 
+
+•  Onboard the Validation Kit's 10-15 contacts as private beta users, in parallel with Milestone 5 work. 
+
+Weeks 22-23 — Beta Feedback 
+
+•  Collect feedback; triage into bugs (fix now) vs. feature requests (log for post-launch). 
+
+•  Fix critical/blocking issues surfaced by real usage. 
+
+Week 24 — Pricing Finalization 
+
+•  Finalize pricing-page copy and tier boundaries using the pricing gut-check responses gathered in the beta. 
+
+Week 25 — Final QA 
+
+•  Full QA pass; load-test the scheduler against expected launch-day volume, not just beta volume. 
+
+Week 26 — Go-to-Market Prep 
+
+•  Prepare launch content: first GEO citation-rate research post, landing page copy, pricing page live. 
+
+Weeks 27-28 — Launch 
+
+•  Soft launch: convert beta users to paid, limited public availability. 
+
+•  Public launch once soft-launch metrics look stable. 
+
+Acceptance checkpoint: First paying customers acquired through the public signup flow, with tracking, audit, 
+content brief, and billing all functioning without manual patches. 
+
+50. Master Task Summary 
+
+Weeks 
+
+Focus 
+
+Owner 
+
+1-3 
+
+4-6 
+
+7-10 
+
+11-14 
+
+15-18 
+
+19-21 
+
+Environment, schema, engine prototyping, scheduler 
+foundation 
+
+Full-stack + AI/backend 
+integration engineer 
+
+Perplexity adapter, project setup, auth (Milestone 1) 
+
+AI/backend integration 
+engineer leads; full-stack 
+supports UI 
+
+OpenAI + Gemini adapters, scoring, dashboard 
+(Milestone 2) 
+
+Both engineers; designer joins 
+Week 7 
+
+Audit engine, crawling integration, competitive view 
+(Milestone 3) 
+
+Full-stack leads UI; AI engineer 
+supports scoring logic 
+
+Content generation, consultant mode, PDF export 
+(Milestone 4) 
+
+Billing, onboarding, regression, production setup 
+(Milestone 5) 
+
+20-24 
+
+Beta onboarding and feedback (overlaps Milestone 5) 
+
+25-28 
+
+Final QA, GTM prep, soft launch, public launch 
+
+Full-stack + AI engineer; 
+designer supports 
+branding/export layout 
+
+Full-stack leads; founder 
+handles payment-
+processor/business setup 
+
+Founder runs beta relationship; 
+engineers fix issues 
+
+Whole team; founder leads 
+GTM content 
+
+ 
+
