@@ -3,6 +3,7 @@ import 'server-only';
 import * as Sentry from '@sentry/nextjs';
 
 import { getAdapter } from '@/lib/engines';
+import { computeAndStoreVisibilityScore } from '@/lib/scoring/compute-visibility';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 import { MAX_ATTEMPTS, STALE_RUNNING_MS, shouldRetry } from './retry';
@@ -15,6 +16,7 @@ export interface ProcessResult {
   failed: number;
   retried: number;
   skippedNoAdapter: number;
+  scored: number;
 }
 
 /**
@@ -36,7 +38,9 @@ export async function processPendingRuns(limit = 25): Promise<ProcessResult> {
     failed: 0,
     retried: 0,
     skippedNoAdapter: 0,
+    scored: 0,
   };
+  const projectsToScore = new Set<string>();
 
   // 1. Enqueue due (prompt × engine) runs (best-effort; failures shouldn't block processing).
   const { data: enqueued, error: enqueueError } = await supabase.rpc('enqueue_due_tracking_runs');
@@ -116,6 +120,7 @@ export async function processPendingRuns(limit = 25): Promise<ProcessResult> {
         .update({ status: 'succeeded', run_at: new Date().toISOString(), raw_response: raw })
         .eq('id', run.id);
       result.succeeded += 1;
+      projectsToScore.add(run.project_id);
     } catch (err) {
       const message = (err as Error).message.slice(0, 1000);
 
@@ -141,6 +146,16 @@ export async function processPendingRuns(limit = 25): Promise<ProcessResult> {
           .eq('id', run.id);
         result.failed += 1;
       }
+    }
+  }
+
+  // Recompute the VisibilityScore for every project that got fresh citation data this cycle.
+  for (const projectId of projectsToScore) {
+    try {
+      await computeAndStoreVisibilityScore(projectId);
+      result.scored += 1;
+    } catch (err) {
+      console.error(`[scoring] failed for project ${projectId}: ${(err as Error).message}`);
     }
   }
 

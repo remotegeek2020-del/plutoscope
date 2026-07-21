@@ -170,6 +170,13 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
 - **Engine adapters:** `src/lib/engines/` — `getAdapter(engine)` registry; `perplexity.ts`
   (Sonar `run` + pure `normalize`, unit-tested) is the first (Milestone 1). OpenAI/Gemini in
   Milestone 2. `src/lib/tracking/url.ts` extracts `cited_domain`.
+- **Scoring (Week 8, founder-approved 2026-07-21):** `src/lib/scoring/visibility.ts` (pure,
+  unit-tested) — GEO = 100 × avg of `1/log2(position+1)` over all (prompt × engine) checks;
+  AEO = 100 × top-position share; SEO = null until the rank-tracking vendor is chosen; blended =
+  `0.7×GEO + 0.3×AEO` (re-weight when SEO lands). `compute-visibility.ts` gathers the latest
+  succeeded run per (prompt × engine), looks up the project domain's citation position, and
+  upserts `visibility_scores` per (project, date). The processor recomputes scores for every
+  project that got fresh citations in a cycle.
 - **App screens:** placeholder routes under the auth-gated `(app)` route group
   (`/dashboard`, `/projects/new`, `/audit`, `/competitive`, `/briefs`, `/clients`) plus an
   internal `/internal/runs` inspector for TrackingRun/Citation rows (RLS-scoped to the signed-in
