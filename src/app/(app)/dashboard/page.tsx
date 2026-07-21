@@ -2,16 +2,47 @@ import Link from 'next/link';
 
 import { createClient } from '@/lib/supabase/server';
 
-// Placeholder dashboard (the real visibility-index dashboard is Milestone 2 / Week 9). For now it
-// lists the account's projects so the Week-5 Project Setup flow has a visible result.
+import { ScoreBar } from './_components/score-bar';
+import { Sparkline } from './_components/sparkline';
+
 export const dynamic = 'force-dynamic';
+
+// A blended-index change of at least this many points is flagged as a significant drop/gain.
+const ALERT_DELTA = 10;
+
+type ScoreRow = {
+  project_id: string;
+  date: string;
+  blended_index: number | null;
+  geo_score: number | null;
+  aeo_score: number | null;
+  seo_score: number | null;
+};
 
 export default async function DashboardPage() {
   const supabase = await createClient();
+
   const { data: projects } = await supabase
     .from('projects')
-    .select('id, domain, label, topics(count), competitors(count)')
+    .select('id, domain, label')
     .order('created_at', { ascending: false });
+
+  const projectIds = (projects ?? []).map((p) => p.id);
+  const { data: scores } = projectIds.length
+    ? await supabase
+        .from('visibility_scores')
+        .select('project_id, date, blended_index, geo_score, aeo_score, seo_score')
+        .in('project_id', projectIds)
+        .order('date', { ascending: true })
+    : { data: [] as ScoreRow[] };
+
+  // Group scores by project (already date-ascending).
+  const scoresByProject = new Map<string, ScoreRow[]>();
+  for (const row of (scores ?? []) as ScoreRow[]) {
+    const list = scoresByProject.get(row.project_id) ?? [];
+    list.push(row);
+    scoresByProject.set(row.project_id, list);
+  }
 
   return (
     <div>
@@ -27,7 +58,8 @@ export default async function DashboardPage() {
         </Link>
       </div>
       <p className="mt-1 text-sm text-slate-400">
-        Placeholder — the visibility-index dashboard is built in Milestone 2 (Week 9).
+        Blended visibility index across ChatGPT, Perplexity, and Gemini. SEO joins once the
+        rank-tracking vendor is wired.
       </p>
 
       {!projects || projects.length === 0 ? (
@@ -39,17 +71,69 @@ export default async function DashboardPage() {
           .
         </p>
       ) : (
-        <ul className="mt-6 flex flex-col gap-2">
-          {projects.map((project) => (
-            <li
-              key={project.id}
-              className="rounded-md border border-slate-200 px-4 py-3 text-sm dark:border-slate-800"
-            >
-              <span className="font-medium">{project.label || project.domain}</span>
-              <span className="ml-2 text-slate-400">{project.domain}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {projects.map((project) => {
+            const series = scoresByProject.get(project.id) ?? [];
+            const latest = series.at(-1) ?? null;
+            const previous = series.length >= 2 ? series[series.length - 2] : null;
+            const trend = series.map((s) => s.blended_index).filter((v): v is number => v !== null);
+
+            const delta =
+              latest?.blended_index != null && previous?.blended_index != null
+                ? Math.round((latest.blended_index - previous.blended_index) * 10) / 10
+                : null;
+            const alerting = delta !== null && Math.abs(delta) >= ALERT_DELTA;
+
+            return (
+              <div
+                key={project.id}
+                className="rounded-lg border border-slate-200 p-4 dark:border-slate-800"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="font-medium">{project.label || project.domain}</div>
+                    <div className="text-xs text-slate-400">{project.domain}</div>
+                  </div>
+                  {delta !== null ? (
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                        delta >= 0
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                          : 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'
+                      } ${alerting ? 'ring-1 ring-current' : ''}`}
+                      title={alerting ? 'Significant change' : undefined}
+                    >
+                      {delta >= 0 ? '▲' : '▼'} {Math.abs(delta)}
+                    </span>
+                  ) : null}
+                </div>
+
+                {latest?.blended_index != null ? (
+                  <>
+                    <div className="mt-4 flex items-end justify-between">
+                      <div>
+                        <div className="text-3xl font-semibold tabular-nums">
+                          {Math.round(latest.blended_index)}
+                        </div>
+                        <div className="text-xs text-slate-400">blended index</div>
+                      </div>
+                      <Sparkline values={trend} />
+                    </div>
+                    <div className="mt-4 flex flex-col gap-2">
+                      <ScoreBar label="GEO" value={latest.geo_score} />
+                      <ScoreBar label="AEO" value={latest.aeo_score} />
+                      <ScoreBar label="SEO" value={latest.seo_score} />
+                    </div>
+                  </>
+                ) : (
+                  <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+                    No tracking data yet — scores appear after the first tracking cycle runs.
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );
