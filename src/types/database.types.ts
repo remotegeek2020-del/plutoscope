@@ -1,4 +1,4 @@
-// Generated from the Supabase schema (migrations 0001–0004). Regenerate after any migration:
+// Generated from the Supabase schema (migrations 0001–0007). Regenerate after any migration:
 //   supabase gen types typescript --project-id <ref> > src/types/database.types.ts
 // Only the `public` schema is exposed via the API; the `app` (staff/admin) schema is
 // intentionally absent here because it is never reachable from client/anon/authenticated roles.
@@ -335,6 +335,8 @@ export type Database = {
       }
       tracking_runs: {
         Row: {
+          attempts: number
+          claimed_at: string | null
           created_at: string
           engine: Database["public"]["Enums"]["tracking_engine"]
           error: string | null
@@ -346,6 +348,8 @@ export type Database = {
           status: Database["public"]["Enums"]["tracking_run_status"]
         }
         Insert: {
+          attempts?: number
+          claimed_at?: string | null
           created_at?: string
           engine: Database["public"]["Enums"]["tracking_engine"]
           error?: string | null
@@ -357,6 +361,8 @@ export type Database = {
           status?: Database["public"]["Enums"]["tracking_run_status"]
         }
         Update: {
+          attempts?: number
+          claimed_at?: string | null
           created_at?: string
           engine?: Database["public"]["Enums"]["tracking_engine"]
           error?: string | null
@@ -430,7 +436,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      enqueue_due_tracking_runs: {
+        Args: { p_interval?: string }
+        Returns: number
+      }
     }
     Enums: {
       account_tier: "free" | "starter" | "consultant" | "agency" | "enterprise"

@@ -1,41 +1,70 @@
 import 'server-only';
 
+import * as Sentry from '@sentry/nextjs';
+
 import { getAdapter } from '@/lib/engines';
 import { createAdminClient } from '@/lib/supabase/admin';
 
+import { MAX_ATTEMPTS, STALE_RUNNING_MS, shouldRetry } from './retry';
+
 export interface ProcessResult {
+  enqueued: number;
+  reclaimed: number;
   claimed: number;
   succeeded: number;
   failed: number;
+  retried: number;
   skippedNoAdapter: number;
 }
 
 /**
- * Claim `pending` tracking_runs and execute them through their engine adapter: call the API,
- * store the raw response, write normalized Citation rows, and mark the run succeeded/failed.
- * Runs with no adapter yet (OpenAI/Gemini until Milestone 2) are left pending.
+ * One full scheduler tick: enqueue due runs, reclaim stale ones, then execute pending runs through
+ * their engine adapter — store the raw response, write normalized Citation rows, and mark the run
+ * succeeded, retried (back to pending), or dead-lettered (failed after MAX_ATTEMPTS). Runs with no
+ * adapter yet (OpenAI/Gemini until Milestone 2) are left pending.
  *
- * Uses the service-role admin client (RLS bypass) — server-only. Basic error handling here;
- * retry/dead-letter handling is added in Week 6.
+ * Uses the service-role admin client (RLS bypass) — server-only. Triggered by Vercel Cron via the
+ * secret-gated /api/internal/tracking/process route.
  */
 export async function processPendingRuns(limit = 25): Promise<ProcessResult> {
   const supabase = createAdminClient();
+  const result: ProcessResult = {
+    enqueued: 0,
+    reclaimed: 0,
+    claimed: 0,
+    succeeded: 0,
+    failed: 0,
+    retried: 0,
+    skippedNoAdapter: 0,
+  };
 
+  // 1. Enqueue due (prompt × engine) runs (best-effort; failures shouldn't block processing).
+  const { data: enqueued, error: enqueueError } = await supabase.rpc('enqueue_due_tracking_runs');
+  if (enqueueError) {
+    console.error('[tracking] enqueue failed:', enqueueError.message);
+  } else if (typeof enqueued === 'number') {
+    result.enqueued = enqueued;
+  }
+
+  // 2. Reclaim runs stuck in `running` (a previous tick crashed mid-execution).
+  const staleBefore = new Date(Date.now() - STALE_RUNNING_MS).toISOString();
+  const { data: reclaimed } = await supabase
+    .from('tracking_runs')
+    .update({ status: 'pending' })
+    .eq('status', 'running')
+    .lt('claimed_at', staleBefore)
+    .select('id');
+  result.reclaimed = reclaimed?.length ?? 0;
+
+  // 3. Execute pending runs.
   const { data: pending, error } = await supabase
     .from('tracking_runs')
-    .select('id, engine, prompt_id, project_id, prompts(text)')
+    .select('id, engine, prompt_id, project_id, attempts, prompts(text)')
     .eq('status', 'pending')
     .order('created_at', { ascending: true })
     .limit(limit);
-
   if (error) throw new Error(error.message);
-
-  const result: ProcessResult = {
-    claimed: pending?.length ?? 0,
-    succeeded: 0,
-    failed: 0,
-    skippedNoAdapter: 0,
-  };
+  result.claimed = pending?.length ?? 0;
 
   for (const run of pending ?? []) {
     const adapter = getAdapter(run.engine);
@@ -44,16 +73,16 @@ export async function processPendingRuns(limit = 25): Promise<ProcessResult> {
       continue;
     }
 
-    // Claim the row (guard against a concurrent worker taking the same one).
-    const { data: claimed, error: claimError } = await supabase
+    const attempt = (run.attempts ?? 0) + 1;
+
+    // Claim the row atomically (only if still pending); records the attempt.
+    const { data: claimed } = await supabase
       .from('tracking_runs')
-      .update({ status: 'running' })
+      .update({ status: 'running', claimed_at: new Date().toISOString(), attempts: attempt })
       .eq('id', run.id)
       .eq('status', 'pending')
       .select('id');
-    if (claimError || !claimed || claimed.length === 0) {
-      continue;
-    }
+    if (!claimed || claimed.length === 0) continue;
 
     // `prompts` comes back as an object (to-one) or array depending on the client version.
     const promptRel = run.prompts as { text?: string } | { text?: string }[] | null;
@@ -88,15 +117,30 @@ export async function processPendingRuns(limit = 25): Promise<ProcessResult> {
         .eq('id', run.id);
       result.succeeded += 1;
     } catch (err) {
-      await supabase
-        .from('tracking_runs')
-        .update({
-          status: 'failed',
-          run_at: new Date().toISOString(),
-          error: (err as Error).message.slice(0, 1000),
-        })
-        .eq('id', run.id);
-      result.failed += 1;
+      const message = (err as Error).message.slice(0, 1000);
+
+      if (shouldRetry(attempt)) {
+        // Transient: back to pending; a later tick retries it.
+        await supabase
+          .from('tracking_runs')
+          .update({ status: 'pending', error: message })
+          .eq('id', run.id);
+        result.retried += 1;
+      } else {
+        // Dead-letter: permanently failed after MAX_ATTEMPTS. Log for investigation.
+        console.error(
+          `[tracking] run ${run.id} (${run.engine}) dead-lettered after ${attempt} attempts: ${message}`,
+        );
+        Sentry.captureException(err, {
+          tags: { area: 'tracking', engine: run.engine },
+          extra: { runId: run.id, attempts: attempt, maxAttempts: MAX_ATTEMPTS },
+        });
+        await supabase
+          .from('tracking_runs')
+          .update({ status: 'failed', run_at: new Date().toISOString(), error: message })
+          .eq('id', run.id);
+        result.failed += 1;
+      }
     }
   }
 

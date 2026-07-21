@@ -153,18 +153,20 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
   first). Live prototype verification of the three shapes is DEFERRED until API keys are in a
   deployed env (keys kept in Vercel, not CI).
 - **Testing:** vitest (`npm test`); CI runs lint + typecheck + test + build.
-- **Scheduler — ENQUEUE (Week 3):** SQL function `app.enqueue_due_tracking_runs(interval)`
-  (SECURITY DEFINER) scheduled hourly by **pg_cron** job `plutoscope-enqueue-tracking`
-  (migration `0005`); inserts one `pending` tracking_run per (prompt × engine) that's due
-  (weekly cadence), idempotently.
-- **Scheduler — EXECUTE (Week 4, architecture decision):** runs in **Next.js (Node)**, not the
-  Supabase Edge worker — because the engine API keys live in Vercel's env store and keeping all
-  adapters in one runtime keeps them unit-testable. Path:
-  `GET /api/internal/tracking/process` (secret-gated by `CRON_SECRET`), triggered by **Vercel
-  Cron** (`vercel.json`). `src/lib/tracking/process-runs.ts` claims pending runs via the
-  service-role admin client, runs the adapter, writes citations, marks succeeded/failed. The
-  old Deno `worker` Edge Function is **retired** (redeployed as a 410 stub; removable in the
-  Supabase dashboard).
+- **Scheduler (Week 3–6):** one self-contained cycle in **Next.js (Node)**, triggered by
+  **Vercel Cron** (`vercel.json`, hourly) hitting `GET /api/internal/tracking/process`
+  (secret-gated by `CRON_SECRET`). `src/lib/tracking/process-runs.ts` does: (1) **enqueue** via
+  `supabase.rpc('enqueue_due_tracking_runs')` — a service-role-only public wrapper over
+  `app.enqueue_due_tracking_runs(interval)` (SECURITY DEFINER; one `pending` run per due
+  (prompt × engine), skipping in-flight and recently-terminal runs); (2) **reclaim** stale
+  `running` rows; (3) **execute** pending runs through the adapter, writing citations. Execution
+  lives in Node (not the Supabase Edge worker) so it shares the Vercel key store and one testable
+  runtime — the Deno `worker` is **retired** (410 stub). The standalone pg_cron enqueue job from
+  Week 3 is **unscheduled** (`0007`); the processor owns the enqueue+execute cycle.
+- **Retries / dead-letter (Week 6):** `tracking_runs.attempts` + `claimed_at`. On adapter failure
+  a run retries (back to `pending`) until `MAX_ATTEMPTS` (`src/lib/tracking/retry.ts`), then is
+  dead-lettered (`status=failed`, logged + Sentry). Enqueue skips a prompt/engine with any
+  succeeded/failed run within the interval, so dead-letters aren't instantly recreated.
 - **Engine adapters:** `src/lib/engines/` — `getAdapter(engine)` registry; `perplexity.ts`
   (Sonar `run` + pure `normalize`, unit-tested) is the first (Milestone 1). OpenAI/Gemini in
   Milestone 2. `src/lib/tracking/url.ts` extracts `cited_domain`.
