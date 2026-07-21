@@ -5,11 +5,12 @@
 > `tracking_runs.raw_response` (jsonb) for auditability, then a normalizer reduces it to
 > `citations` rows: `{ cited_domain, source_url, position, snippet }`.
 >
-> **Status: DOCUMENTED, not yet live-verified.** These shapes come from the official API docs
-> (2026-07). The Week 2 "prototype one real call per engine and confirm the actual shape" step
-> is deferred until the API keys are available in a deployed environment (the keys are kept in
-> Vercel's store, not in the build/CI). When that runs, verify each shape against a real
-> response and update `src/lib/engines/types.ts` if anything differs.
+> **Status: adapters BUILT against these shapes; not yet live-verified.** All three adapters
+> (`perplexity.ts` Milestone 1; `openai.ts` + `gemini.ts` Milestone 2 / Week 7) are implemented
+> with pure, unit-tested normalizers. The shapes come from the official API docs (2026-07); the
+> "one real call per engine, confirm the actual shape" step is deferred until the API keys are in
+> a deployed environment (keys kept in Vercel, not CI). When that runs, verify each shape against
+> a real response and update `src/lib/engines/types.ts` + the normalizers if anything differs.
 
 TypeScript equivalents of everything below live in
 [`src/lib/engines/types.ts`](../src/lib/engines/types.ts).
