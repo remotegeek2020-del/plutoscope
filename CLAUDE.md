@@ -213,6 +213,15 @@ console. Founder gate before M5: whether impersonation is disclosed to customers
   `branding` storage bucket (owner-folder RLS, migration `0008`); managed on `/settings`.
   `playwright-core` is in `serverExternalPackages` so it isn't bundled.
 
+- **Billing (Milestone 5, Week 19):** `src/lib/billing/` — `stripe.ts` (server Stripe client),
+  `plans.ts` (tier↔price/status maps). Checkout + portal via `settings/billing-actions.ts`;
+  webhook at `POST /api/webhooks/stripe` reconciles `accounts.tier` + `billing_status` (service
+  role) on checkout/subscription events. Stripe linkage on `accounts.stripe_customer_id`/
+  `stripe_subscription_id` (migration `0009`). Env: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+  `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_CONSULTANT`, `NEXT_PUBLIC_APP_URL`. Tier caps already
+  enforced in `createProject`. Admin/impersonation console is the remaining Week 19 piece
+  (impersonation **disclosed to customers** per founder decision).
+
 ## Live API pricing check (confirmed 2026-07-20)
 
 Mechanisms unchanged from §17.2; only model generations advanced. Re-validate before

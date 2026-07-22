@@ -26,6 +26,8 @@ export type Database = {
           report_brand_name: string | null
           report_logo_url: string | null
           seats: number
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
           tier: Database["public"]["Enums"]["account_tier"]
           updated_at: string
         }
@@ -38,6 +40,8 @@ export type Database = {
           report_brand_name?: string | null
           report_logo_url?: string | null
           seats?: number
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           tier?: Database["public"]["Enums"]["account_tier"]
           updated_at?: string
         }
@@ -50,6 +54,8 @@ export type Database = {
           report_brand_name?: string | null
           report_logo_url?: string | null
           seats?: number
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           tier?: Database["public"]["Enums"]["account_tier"]
           updated_at?: string
         }
