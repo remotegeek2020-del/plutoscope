@@ -188,8 +188,11 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
 - **Audit engine (Milestone 3, Week 11):** `src/lib/audit/` — `rules.ts` is a deterministic,
   unit-tested SEO/AEO/GEO rule set (12 checks; each a pure `(CrawledPage) => AuditFinding` with
   severity + recommendation). `firecrawl.ts` (server-only) fetches a page as markdown+html+metadata
-  via **Firecrawl** (`FIRECRAWL_API_KEY`); no in-house crawler. Week 12 adds the scoring
-  aggregation + Audit Report screen; live crawl runs in the deployed env with the key.
+  via **Firecrawl** (`FIRECRAWL_API_KEY`); no in-house crawler. `score.ts` (Week 12, pure,
+  unit-tested) aggregates findings → severity-weighted per-discipline scores + overall +
+  prioritized fix list. `run-audit.ts` (server) crawls → rules → score → inserts an AuditReport
+  (RLS owner-scoped). Audit Report screen (`/audit`) runs an audit on a page URL and renders the
+  score breakdown + prioritized fixes. Live crawl runs in the deployed env with the key.
 
 ## Live API pricing check (confirmed 2026-07-20)
 
