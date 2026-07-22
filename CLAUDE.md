@@ -133,6 +133,16 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
 - **Git:** develop on branch `claude/plutoscope-fullstack-setup-z8dy4b`; commit with
   clear messages; push with `git push -u origin <branch>`. Don't open PRs unless asked.
 
+## Build progress
+
+Phase 0 (Wk1–3) ✅ · Milestone 1 (Wk4–6) ✅ · Milestone 2 (Wk7–10) ✅ · Milestone 3
+(Wk11–14) ✅ · Milestone 4 (Wk15–18) ✅ — all build-complete on branch
+`claude/plutoscope-fullstack-setup-z8dy4b`. Live acceptance runs (real citations, live
+crawl, live LLM drafts) happen in the deployed env once the respective keys are set;
+everything key-independent (RLS, scoring, gap analysis, PDF render, consultant switcher)
+is verified here. **Next: Milestone 5 (Wk19–21)** — billing (Stripe), onboarding, admin
+console. Founder gate before M5: whether impersonation is disclosed to customers.
+
 ## Implementation status & notes
 
 - **Migrations applied to dev + staging:** `0001` Account+Project · `0002` staff realm +
