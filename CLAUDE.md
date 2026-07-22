@@ -219,8 +219,17 @@ console. Founder gate before M5: whether impersonation is disclosed to customers
   role) on checkout/subscription events. Stripe linkage on `accounts.stripe_customer_id`/
   `stripe_subscription_id` (migration `0009`). Env: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
   `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_CONSULTANT`, `NEXT_PUBLIC_APP_URL`. Tier caps already
-  enforced in `createProject`. Admin/impersonation console is the remaining Week 19 piece
-  (impersonation **disclosed to customers** per founder decision).
+  enforced in `createProject`.
+- **Admin/impersonation console (Milestone 5, Week 19):** `app` staff schema stays private;
+  controlled access via SECURITY DEFINER public RPCs (migration `0010`): `admin_staff_role`,
+  `admin_search_accounts`, `admin_start_impersonation`, `admin_end_impersonation`,
+  `admin_active_impersonation`, `admin_account_detail`, `admin_audit_log`, and the customer-facing
+  `account_access_log`. `/admin` (staff-gated via `getStaffRole`, 404 for non-staff) = account
+  search + "login as" (reason required) + audit log; impersonation is audited, **read-only**,
+  30-min expiry, tracked by an `impersonation` cookie. Unmissable amber banner + End Session in
+  the `(app)` layout. Impersonation is **disclosed to customers** (founder decision) via the
+  access log on `/settings`. Read-only target view at `/admin/viewing`. Verified end-to-end
+  (rolled-back SQL): staff-only, ends cleanly, non-staff blocked, customer sees the disclosure.
 
 ## Live API pricing check (confirmed 2026-07-20)
 

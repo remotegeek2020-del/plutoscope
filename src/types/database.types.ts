@@ -448,6 +448,65 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      account_access_log: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          started_at: string
+          ended_at: string | null
+          reason: string
+          staff_email: string
+          access_mode: string
+        }[]
+      }
+      admin_account_detail: {
+        Args: { p_session: string }
+        Returns: Json
+      }
+      admin_active_impersonation: {
+        Args: { p_session: string }
+        Returns: {
+          account_id: string
+          account_name: string | null
+          account_domain: string | null
+          expires_at: string
+        }[]
+      }
+      admin_audit_log: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          staff_email: string
+          account_name: string | null
+          reason: string
+          access_mode: string
+          started_at: string
+          ended_at: string | null
+          expires_at: string
+        }[]
+      }
+      admin_end_impersonation: {
+        Args: { p_session: string }
+        Returns: undefined
+      }
+      admin_search_accounts: {
+        Args: { p_query: string }
+        Returns: {
+          id: string
+          name: string | null
+          tier: string
+          billing_status: string
+          owner_email: string
+          projects: number
+        }[]
+      }
+      admin_staff_role: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      admin_start_impersonation: {
+        Args: { p_target: string; p_reason: string }
+        Returns: string
+      }
       enqueue_due_tracking_runs: {
         Args: { p_interval?: string }
         Returns: number
