@@ -22,6 +22,7 @@ export type Database = {
           created_at: string
           id: string
           name: string | null
+          onboarded_at: string | null
           owner_id: string
           report_brand_name: string | null
           report_logo_url: string | null
@@ -36,6 +37,7 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string | null
+          onboarded_at?: string | null
           owner_id: string
           report_brand_name?: string | null
           report_logo_url?: string | null
@@ -50,6 +52,7 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string | null
+          onboarded_at?: string | null
           owner_id?: string
           report_brand_name?: string | null
           report_logo_url?: string | null

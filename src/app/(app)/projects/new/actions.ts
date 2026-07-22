@@ -92,6 +92,13 @@ export async function createProject(input: unknown): Promise<CreateProjectResult
     }
   }
 
+  // First project completes onboarding (idempotent — only sets it once).
+  await supabase
+    .from('accounts')
+    .update({ onboarded_at: new Date().toISOString() })
+    .eq('id', account.id)
+    .is('onboarded_at', null);
+
   revalidatePath('/dashboard');
   redirect('/dashboard');
 }
