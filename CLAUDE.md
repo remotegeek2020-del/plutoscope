@@ -152,7 +152,10 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
   `docs/engine-response-shapes.md`. Adapters themselves are built from Milestone 1 (Perplexity
   first). Live prototype verification of the three shapes is DEFERRED until API keys are in a
   deployed env (keys kept in Vercel, not CI).
-- **Testing:** vitest (`npm test`); CI runs lint + typecheck + test + build.
+- **Testing:** vitest (`npm test`); CI runs lint + typecheck + test + build. Includes an
+  end-to-end pipeline test (`src/lib/scoring/pipeline.integration.test.ts`): raw engine payloads
+  → each adapter's `normalize` → (prompt × engine) checks → blended VisibilityScore, across all
+  three engines (Week 10 integration close-out; live API run happens in the deployed env).
 - **Scheduler (Week 3–6):** one self-contained cycle in **Next.js (Node)**, triggered by
   **Vercel Cron** (`vercel.json`, hourly) hitting `GET /api/internal/tracking/process`
   (secret-gated by `CRON_SECRET`). `src/lib/tracking/process-runs.ts` does: (1) **enqueue** via
