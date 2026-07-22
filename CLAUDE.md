@@ -185,6 +185,12 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
   internal `/internal/runs` inspector for TrackingRun/Citation rows (RLS-scoped to the signed-in
   user). Full staff admin console is Milestone 5.
 
+- **Audit engine (Milestone 3, Week 11):** `src/lib/audit/` — `rules.ts` is a deterministic,
+  unit-tested SEO/AEO/GEO rule set (12 checks; each a pure `(CrawledPage) => AuditFinding` with
+  severity + recommendation). `firecrawl.ts` (server-only) fetches a page as markdown+html+metadata
+  via **Firecrawl** (`FIRECRAWL_API_KEY`); no in-house crawler. Week 12 adds the scoring
+  aggregation + Audit Report screen; live crawl runs in the deployed env with the key.
+
 ## Live API pricing check (confirmed 2026-07-20)
 
 Mechanisms unchanged from §17.2; only model generations advanced. Re-validate before
