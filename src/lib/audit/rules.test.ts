@@ -20,15 +20,19 @@ describe('audit parsing helpers', () => {
     ]);
   });
 
-  it('counts outbound http links only', () => {
+  it('counts outbound http links, excluding same-domain links', () => {
     expect(countOutboundLinks('[a](https://x.com) [b](/internal) [c](http://y.com)')).toBe(2);
+    // links back to the page's own domain are not "external citations"
+    expect(countOutboundLinks('[self](https://acme.com/x) [ext](https://y.com)', 'acme.com')).toBe(
+      1,
+    );
   });
 
-  it('detects list markup and json-ld', () => {
+  it('detects list markup and json-ld (from rawHtml, since cleaned html strips scripts)', () => {
     expect(hasListMarkup('- one\n- two')).toBe(true);
     expect(hasListMarkup('just prose')).toBe(false);
-    expect(hasJsonLd('<script type="application/ld+json">{}</script>')).toBe(true);
-    expect(hasJsonLd('<p>none</p>')).toBe(false);
+    expect(hasJsonLd({ rawHtml: '<script type="application/ld+json">{}</script>' })).toBe(true);
+    expect(hasJsonLd({ html: '<p>none</p>' })).toBe(false);
   });
 
   it('detects freshness from a year or metadata', () => {

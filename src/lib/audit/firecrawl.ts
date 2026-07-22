@@ -16,6 +16,7 @@ interface FirecrawlScrapeResponse {
   data?: {
     markdown?: string;
     html?: string;
+    rawHtml?: string;
     metadata?: {
       title?: string;
       description?: string;
@@ -37,7 +38,7 @@ export async function crawlPage(url: string): Promise<CrawledPage> {
       Authorization: `Bearer ${FIRECRAWL_API_KEY}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ url, formats: ['markdown', 'html'] }),
+    body: JSON.stringify({ url, formats: ['markdown', 'html', 'rawHtml'] }),
   });
 
   if (!response.ok) {
@@ -53,6 +54,7 @@ export async function crawlPage(url: string): Promise<CrawledPage> {
     url,
     markdown: data.markdown ?? '',
     html: data.html,
+    rawHtml: data.rawHtml,
     metadata: {
       title: metadata.title,
       description: metadata.description,

@@ -1,3 +1,5 @@
+import { extractDomain } from '@/lib/tracking/url';
+
 import type { AuditFinding, CrawledPage } from './types';
 
 // SEO/AEO/GEO audit rule set (Part VIII §46 Week 11). Each rule is a pure function of the crawled
@@ -21,9 +23,16 @@ export function parseHeadings(markdown: string): Heading[] {
   return headings;
 }
 
-export function countOutboundLinks(markdown: string): number {
-  const matches = markdown.match(/\]\((https?:\/\/[^)]+)\)/g);
-  return matches ? matches.length : 0;
+/** Count links to external domains (excludes links back to the page's own domain). */
+export function countOutboundLinks(markdown: string, ownDomain?: string | null): number {
+  let count = 0;
+  for (const match of markdown.matchAll(/\]\((https?:\/\/[^)]+)\)/g)) {
+    const host = extractDomain(match[1]);
+    if (!host) continue;
+    if (ownDomain && host === ownDomain) continue;
+    count += 1;
+  }
+  return count;
 }
 
 export function wordCount(markdown: string): number {
@@ -36,13 +45,16 @@ export function hasListMarkup(markdown: string): boolean {
   return /^[ \t]*([-*+]|\d+\.)\s+\S/m.test(markdown);
 }
 
-export function hasJsonLd(html: string | undefined): boolean {
-  return Boolean(html && /<script[^>]+type=["']application\/ld\+json["']/i.test(html));
+/** Detect JSON-LD structured data. Checks rawHtml first (cleaned html strips <script> tags). */
+export function hasJsonLd(page: Pick<CrawledPage, 'html' | 'rawHtml'>): boolean {
+  const source = `${page.rawHtml ?? ''}\n${page.html ?? ''}`;
+  return /<script[^>]+type=["']application\/ld\+json["']/i.test(source);
 }
 
 export function hasFreshnessSignal(page: CrawledPage): boolean {
   if (page.metadata.modifiedTime) return true;
-  return /\b20[12]\d\b/.test(page.markdown);
+  // Only a recent year counts as freshness (an old "founded 2015" mention shouldn't).
+  return /\b202[4-9]\b/.test(page.markdown);
 }
 
 // ---- rules -----------------------------------------------------------------------------------
@@ -162,7 +174,7 @@ const AEO_RULES: Rule[] = [
 
 const GEO_RULES: Rule[] = [
   (page) => {
-    const count = countOutboundLinks(page.markdown);
+    const count = countOutboundLinks(page.markdown, extractDomain(page.url));
     const passed = count >= 2;
     return {
       id: 'geo-outbound-citations',
@@ -175,7 +187,7 @@ const GEO_RULES: Rule[] = [
     };
   },
   (page) => {
-    const passed = hasJsonLd(page.html);
+    const passed = hasJsonLd(page);
     return {
       id: 'geo-structured-data',
       discipline: 'geo',

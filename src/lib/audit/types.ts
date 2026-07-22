@@ -8,6 +8,8 @@ export interface CrawledPage {
   url: string;
   markdown: string;
   html?: string;
+  /** Unmodified HTML (keeps <script> tags) — needed to detect JSON-LD structured data. */
+  rawHtml?: string;
   metadata: {
     title?: string;
     description?: string;
