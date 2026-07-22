@@ -194,6 +194,15 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
   (RLS owner-scoped). Audit Report screen (`/audit`) runs an audit on a page URL and renders the
   score breakdown + prioritized fixes. Live crawl runs in the deployed env with the key.
 
+- **White-label PDF export (Milestone 4, Week 17):** `src/lib/reports/report-html.ts` (pure,
+  unit-tested) renders a branded, self-contained HTML report; `pdf.ts` converts it via headless
+  Chromium (`playwright-core`; `CHROMIUM_EXECUTABLE_PATH` — use @sparticuz/chromium on Vercel).
+  `build-report.ts` gathers a project's latest score/audit/competitive summary (RLS-scoped).
+  `GET /api/reports/[projectId]` streams the PDF (auth + owner-scoped). Branding (brand name +
+  logo) lives on `accounts.report_brand_name`/`report_logo_url`; logos upload to the public
+  `branding` storage bucket (owner-folder RLS, migration `0008`); managed on `/settings`.
+  `playwright-core` is in `serverExternalPackages` so it isn't bundled.
+
 ## Live API pricing check (confirmed 2026-07-20)
 
 Mechanisms unchanged from §17.2; only model generations advanced. Re-validate before

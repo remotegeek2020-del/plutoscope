@@ -3,6 +3,8 @@ import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Keep the headless-browser lib out of the server bundle (loaded at runtime for PDF export).
+  serverExternalPackages: ['playwright-core'],
 };
 
 // Sentry wraps the Next config to instrument the build. Source-map upload only happens when

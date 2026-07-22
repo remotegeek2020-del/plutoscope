@@ -75,6 +75,14 @@ export function ClientList({ clients, activeId }: { clients: Client[]; activeId:
                 >
                   Briefs
                 </Link>
+                <a
+                  href={`/api/reports/${client.id}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-slate-500 hover:underline"
+                >
+                  Export PDF
+                </a>
                 {isActive ? null : (
                   <button
                     onClick={() =>

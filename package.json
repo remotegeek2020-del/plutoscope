@@ -20,6 +20,7 @@
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.48.1",
     "next": "^15.3.0",
+    "playwright-core": "^1.49.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "server-only": "^0.0.1",

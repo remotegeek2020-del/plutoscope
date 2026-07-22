@@ -15,6 +15,7 @@ const NAV = [
   { href: '/competitive', label: 'Competitive' },
   { href: '/briefs', label: 'Content Briefs' },
   { href: '/clients', label: 'Clients' },
+  { href: '/settings', label: 'Settings' },
   { href: '/internal/runs', label: 'Tracking (internal)' },
 ];
 
