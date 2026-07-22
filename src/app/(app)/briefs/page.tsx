@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { getActiveProjectId, resolveActiveProject } from '@/lib/active-project';
 import { createClient } from '@/lib/supabase/server';
 
 import { BriefEditor, GenerateBriefButton } from './brief-controls';
@@ -32,7 +33,8 @@ export default async function ContentBriefPage({
     );
   }
 
-  const active = projects.find((p) => p.id === projectParam) ?? projects[0];
+  const active =
+    resolveActiveProject(projects, await getActiveProjectId(), projectParam) ?? projects[0];
 
   const [{ data: topics }, { data: briefs }] = await Promise.all([
     supabase.from('topics').select('id, text').eq('project_id', active.id),

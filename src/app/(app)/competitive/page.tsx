@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { getActiveProjectId, resolveActiveProject } from '@/lib/active-project';
 import {
   analyzeGaps,
   summarizeGaps,
@@ -43,7 +44,8 @@ export default async function CompetitiveViewPage({
     );
   }
 
-  const active = projects.find((p) => p.id === projectParam) ?? projects[0];
+  const active =
+    resolveActiveProject(projects, await getActiveProjectId(), projectParam) ?? projects[0];
   const projectDomain = normalizeDomain(active.domain) ?? active.domain;
 
   const [{ data: competitors }, { data: prompts }, { data: runs }] = await Promise.all([
