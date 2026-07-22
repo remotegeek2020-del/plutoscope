@@ -136,12 +136,14 @@ Staff realm (SEPARATE auth realm — never mixed into customer Account tables):
 ## Build progress
 
 Phase 0 (Wk1–3) ✅ · Milestone 1 (Wk4–6) ✅ · Milestone 2 (Wk7–10) ✅ · Milestone 3
-(Wk11–14) ✅ · Milestone 4 (Wk15–18) ✅ — all build-complete on branch
-`claude/plutoscope-fullstack-setup-z8dy4b`. Live acceptance runs (real citations, live
-crawl, live LLM drafts) happen in the deployed env once the respective keys are set;
-everything key-independent (RLS, scoring, gap analysis, PDF render, consultant switcher)
-is verified here. **Next: Milestone 5 (Wk19–21)** — billing (Stripe), onboarding, admin
-console. Founder gate before M5: whether impersonation is disclosed to customers.
+(Wk11–14) ✅ · Milestone 4 (Wk15–18) ✅ · Milestone 5 (Wk19–21) ✅ — **the full MVP build
+(Weeks 1–21) is build-complete** on branch `claude/plutoscope-fullstack-setup-z8dy4b`.
+Live acceptance runs (real citations, live crawl, live LLM drafts, live Stripe) happen in
+the deployed env once the respective keys are set; everything key-independent (RLS, scoring,
+gap analysis, PDF render, consultant switcher, impersonation flow) is verified here. Migrations
+`0001`–`0011` applied to dev + staging. **Next: Beta & Launch (Wk20–28)** — create the prod
+env per `docs/PRODUCTION.md`, onboard the validation-kit beta users, then launch. Remaining
+founder gate: the Google-organic rank-tracking vendor (unlocks the SEO score).
 
 ## Implementation status & notes
 
