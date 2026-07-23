@@ -41,6 +41,30 @@ describe('normalizeGemini', () => {
     ]);
   });
 
+  it('uses the real publisher domain from web.title when the uri is a Vertex redirect', () => {
+    // Live grounding responses return `uri` as a vertexaisearch.cloud.google.com redirect and the
+    // true domain in `title`. We must record the publisher, not the redirect host, and dedupe by
+    // resolved domain (pnc.com cited via two different redirect uris counts once).
+    const redirect = (id: string) =>
+      `https://vertexaisearch.cloud.google.com/grounding-api-redirect/${id}`;
+    const citations = normalizeGemini({
+      candidates: [
+        {
+          groundingMetadata: {
+            groundingChunks: [
+              { web: { uri: redirect('AAA'), title: 'pnc.com' } },
+              { web: { uri: redirect('BBB'), title: 'wikipedia.org' } },
+              { web: { uri: redirect('CCC'), title: 'pnc.com' } },
+            ],
+          },
+        },
+      ],
+    });
+
+    expect(citations.map((c) => c.citedDomain)).toEqual(['pnc.com', 'wikipedia.org']);
+    expect(citations[0].sourceUrl).toBe(redirect('AAA'));
+  });
+
   it('returns [] when there is no grounding metadata', () => {
     expect(normalizeGemini({ candidates: [{}] })).toEqual([]);
     expect(normalizeGemini({})).toEqual([]);

@@ -1,5 +1,5 @@
 import { getServerEnv } from '@/lib/env';
-import { extractDomain } from '@/lib/tracking/url';
+import { extractDomain, normalizeDomain } from '@/lib/tracking/url';
 import type { Json } from '@/types/database.types';
 
 import type {
@@ -13,10 +13,12 @@ import type {
 // `groundingChunks` (sources) + `groundingSupports` (which answer segment each source backs).
 // Model configurable via GEMINI_MODEL. `normalize` is pure and unit-tested.
 //
-// Caveat (documented in docs/engine-response-shapes.md): grounding `uri`s are often Vertex
-// redirect URLs (vertexaisearch.google.com/…). We extract the domain from the uri as-is for MVP;
-// resolving the redirect to the true publisher domain requires an HTTP hop and is a later
-// refinement (it can't happen inside the pure normalizer).
+// Grounding `uri`s are Vertex redirect URLs (vertexaisearch.cloud.google.com/grounding-api-
+// redirect/…) that mask the true publisher — so extracting the domain from the uri yields only the
+// redirect host and no real source is ever detected (confirmed against live grounding responses).
+// The real publisher domain is carried in `web.title` (e.g. "pnc.com", "wikipedia.org"), so we use
+// that for `cited_domain` and keep the redirect uri as the click-through `source_url`. Deduped by
+// resolved domain (a publisher cited via several redirect uris counts once, at its best position).
 
 const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 const DEFAULT_MODEL = 'gemini-2.5-flash';
@@ -31,9 +33,13 @@ export function normalizeGemini(raw: GeminiGroundingResponseShape): NormalizedCi
 
   chunks.forEach((chunk, index) => {
     const uri = chunk.web?.uri;
-    const domain = extractDomain(uri);
-    if (!uri || !domain || seen.has(uri)) return;
-    seen.add(uri);
+    // Prefer the real publisher domain in `web.title` (only when it actually looks like a domain,
+    // i.e. has a dot); otherwise fall back to the uri host. This keeps the redirect host out of the
+    // results for grounded responses while still handling the odd non-domain title.
+    const fromTitle = normalizeDomain(chunk.web?.title);
+    const domain = fromTitle && fromTitle.includes('.') ? fromTitle : extractDomain(uri);
+    if (!domain || seen.has(domain)) return;
+    seen.add(domain);
 
     const support = supports.find((s) => s.groundingChunkIndices?.includes(index));
     citations.push({
