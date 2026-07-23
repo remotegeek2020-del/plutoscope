@@ -20,6 +20,24 @@ const inputSchema = z.object({
 export type CreateProjectResult = { ok: false; error: string };
 
 /**
+ * Delete a project and everything under it (topics, prompts, tracking runs, citations, scores,
+ * audits, briefs — all `on delete cascade`). Runs under the user's session, so RLS guarantees a
+ * user can only delete a project their account owns.
+ */
+export async function deleteProject(projectId: string): Promise<{ ok: false; error: string } | void> {
+  const parsed = z.string().uuid().safeParse(projectId);
+  if (!parsed.success) return { ok: false, error: 'Invalid project.' };
+
+  const supabase = await createClient();
+  const { error } = await supabase.from('projects').delete().eq('id', parsed.data);
+  if (error) return { ok: false, error: error.message };
+
+  revalidatePath('/projects/new');
+  revalidatePath('/dashboard');
+  revalidatePath('/competitive');
+}
+
+/**
  * Create a Project with its Topics (each expanded into Prompts) and Competitors, enforcing the
  * account's per-tier caps. Runs under the user's session, so RLS guarantees the records attach to
  * an account the user owns. On success it redirects; it only returns on validation/failure.
