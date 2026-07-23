@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { HelpNote } from '@/app/(app)/_components/help-note';
 import { createClient } from '@/lib/supabase/server';
 
 import { ScoreBar } from './_components/score-bar';
@@ -61,6 +62,32 @@ export default async function DashboardPage() {
         Blended visibility index across ChatGPT, Perplexity, and Gemini. SEO joins once the
         rank-tracking vendor is wired.
       </p>
+
+      <HelpNote title="What do these numbers mean?">
+        <p>
+          Each card is one website you&apos;re tracking. The big number is its{' '}
+          <strong>visibility index (0–100)</strong> — how often AI assistants mention that site when
+          people ask about your topics. <strong>0</strong> = never mentioned yet;{' '}
+          <strong>100</strong> = mentioned first, every time.
+        </p>
+        <ul className="ml-4 list-disc space-y-1">
+          <li>
+            <strong>GEO</strong> — do the AI answers (ChatGPT/Perplexity/Gemini) cite you at all?
+          </li>
+          <li>
+            <strong>AEO</strong> — when they do, are you near the top of the answer?
+          </li>
+          <li>
+            <strong>SEO</strong> — classic Google ranking. Shows &ldquo;n/a&rdquo; until we connect a
+            rank-tracking vendor.
+          </li>
+        </ul>
+        <p>
+          A score of <strong>0</strong> isn&apos;t an error — it means the AIs aren&apos;t citing
+          your domain yet. Head to <strong>Competitive</strong> to see who they cite instead, and{' '}
+          <strong>Content Briefs</strong> to start changing it.
+        </p>
+      </HelpNote>
 
       {!projects || projects.length === 0 ? (
         <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
