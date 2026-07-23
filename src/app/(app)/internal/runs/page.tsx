@@ -1,4 +1,7 @@
+import { getStaffRole } from '@/lib/admin/staff';
 import { createClient } from '@/lib/supabase/server';
+
+import { RunNow } from './run-now';
 
 // Minimal internal inspector for TrackingRun + Citation rows (Part VIII §43 Week 4). Uses the
 // signed-in user's session, so RLS scopes it to their own projects. The full staff admin console
@@ -16,24 +19,32 @@ type RunRow = {
 
 export default async function TrackingRunsPage() {
   const supabase = await createClient();
-  const { data: runs } = await supabase
-    .from('tracking_runs')
-    .select('id, engine, status, run_at, created_at, citations(cited_domain, position, source_url)')
-    .order('created_at', { ascending: false })
-    .limit(50)
-    .returns<RunRow[]>();
+  const [{ data: runs }, staffRole] = await Promise.all([
+    supabase
+      .from('tracking_runs')
+      .select(
+        'id, engine, status, run_at, created_at, citations(cited_domain, position, source_url)',
+      )
+      .order('created_at', { ascending: false })
+      .limit(50)
+      .returns<RunRow[]>(),
+    getStaffRole(),
+  ]);
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight text-instrument dark:text-pluto">
-        Tracking Runs <span className="text-sm font-normal text-slate-400">(internal)</span>
-      </h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-semibold tracking-tight text-instrument dark:text-pluto">
+          Tracking Runs <span className="text-sm font-normal text-slate-400">(internal)</span>
+        </h1>
+        {staffRole ? <RunNow /> : null}
+      </div>
 
       {!runs || runs.length === 0 ? (
         <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-          No tracking runs yet. The hourly scheduler enqueues runs for your project&apos;s prompts;
-          the processor fills in citations once the Perplexity key is configured in the deployed
-          environment.
+          No tracking runs yet. The hourly scheduler enqueues runs for your project&apos;s prompts
+          and the processor fills in citations. Staff can trigger a cycle immediately with
+          &ldquo;Run tracking now&rdquo; above (requires at least one engine key in the environment).
         </p>
       ) : (
         <table className="mt-6 w-full border-collapse text-sm">
