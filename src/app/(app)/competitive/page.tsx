@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { HelpNote } from '@/app/(app)/_components/help-note';
+import { ensureAccount } from '@/lib/accounts';
 import { getActiveProjectId, resolveActiveProject } from '@/lib/active-project';
 import {
   analyzeGaps,
@@ -9,7 +10,10 @@ import {
   type DomainPresence,
 } from '@/lib/competitive/gap-analysis';
 import { createClient } from '@/lib/supabase/server';
+import { getTierLimits } from '@/lib/tiers';
 import { normalizeDomain } from '@/lib/tracking/url';
+
+import { ManageCompetitors } from './manage-competitors';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,7 +54,7 @@ export default async function CompetitiveViewPage({
   const projectDomain = normalizeDomain(active.domain) ?? active.domain;
 
   const [{ data: competitors }, { data: prompts }, { data: runs }] = await Promise.all([
-    supabase.from('competitors').select('domain').eq('project_id', active.id),
+    supabase.from('competitors').select('id, domain').eq('project_id', active.id),
     supabase.from('prompts').select('id, text').eq('project_id', active.id),
     supabase
       .from('tracking_runs')
@@ -99,6 +103,26 @@ export default async function CompetitiveViewPage({
 
   const comparisons = analyzeGaps(prompts ?? [], projectDomain, competitorDomains, citations);
   const summary = summarizeGaps(comparisons);
+
+  // Auto-discovered competitor suggestions: the domains the AI cites most across the latest runs,
+  // excluding the project's own domain and any already-pinned competitor.
+  const { data: allCitedRows } = runIds.length
+    ? await supabase.from('citations').select('cited_domain').in('tracking_run_id', runIds)
+    : { data: [] as { cited_domain: string }[] };
+  const excluded = new Set([projectDomain, ...competitorDomains]);
+  const freq = new Map<string, number>();
+  for (const row of allCitedRows ?? []) {
+    const d = row.cited_domain;
+    if (!d || excluded.has(d)) continue;
+    freq.set(d, (freq.get(d) ?? 0) + 1);
+  }
+  const suggestions = [...freq.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([d]) => d)
+    .slice(0, 6);
+
+  const account = await ensureAccount();
+  const maxCompetitors = getTierLimits(account.tier).maxCompetitorsPerProject;
 
   return (
     <div>
@@ -181,11 +205,12 @@ export default async function CompetitiveViewPage({
         </p>
       </div>
 
-      {competitorDomains.length === 0 ? (
-        <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-          No competitors for this project yet — add up to 3 in Project Setup to compare.
-        </p>
-      ) : null}
+      <ManageCompetitors
+        projectId={active.id}
+        competitors={competitors ?? []}
+        suggestions={suggestions}
+        maxCompetitors={maxCompetitors}
+      />
 
       {(prompts ?? []).length === 0 ? (
         <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
