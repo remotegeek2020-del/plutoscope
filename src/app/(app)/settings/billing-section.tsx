@@ -8,9 +8,10 @@ interface Props {
   tier: string;
   billingStatus: string;
   hasCustomer: boolean;
+  isComplimentary?: boolean;
 }
 
-export function BillingSection({ tier, billingStatus, hasCustomer }: Props) {
+export function BillingSection({ tier, billingStatus, hasCustomer, isComplimentary }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -27,10 +28,21 @@ export function BillingSection({ tier, billingStatus, hasCustomer }: Props) {
       <h2 className="text-sm font-semibold">Billing</h2>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
         Current plan: <span className="font-medium capitalize">{tier}</span>{' '}
-        <span className="text-slate-400">({billingStatus})</span>
+        {isComplimentary ? (
+          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+            Complimentary
+          </span>
+        ) : (
+          <span className="text-slate-400">({billingStatus})</span>
+        )}
       </p>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      {isComplimentary ? (
+        <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
+          Your account has complimentary access — no billing is required.
+        </p>
+      ) : (
+        <div className="mt-4 flex flex-wrap gap-2">
         <button
           onClick={() => run(() => startCheckout('starter'))}
           disabled={isPending}
@@ -54,7 +66,8 @@ export function BillingSection({ tier, billingStatus, hasCustomer }: Props) {
             Manage billing
           </button>
         ) : null}
-      </div>
+        </div>
+      )}
       {error ? <p className="mt-2 text-xs text-red-600">{error}</p> : null}
     </div>
   );

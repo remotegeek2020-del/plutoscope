@@ -12,7 +12,7 @@ been auto-provisioned — production infra is a cost/ownership decision left to 
 | staging | `Plutoscope Staging` (`wbmivxrenheicaoztnkr`) | pre-prod verification |
 | **production** | _create this_ | live customers |
 
-Migrations `0001`–`0011` are applied to dev and staging. Apply the same set, in order, to prod.
+Migrations `0001`–`0012` are applied to dev and staging. Apply the same set, in order, to prod.
 
 ## 1. Create the production Supabase project
 

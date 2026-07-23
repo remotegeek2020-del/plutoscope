@@ -141,7 +141,7 @@ Phase 0 (Wk1–3) ✅ · Milestone 1 (Wk4–6) ✅ · Milestone 2 (Wk7–10) ✅
 Live acceptance runs (real citations, live crawl, live LLM drafts, live Stripe) happen in
 the deployed env once the respective keys are set; everything key-independent (RLS, scoring,
 gap analysis, PDF render, consultant switcher, impersonation flow) is verified here. Migrations
-`0001`–`0011` applied to dev + staging. **Next: Beta & Launch (Wk20–28)** — create the prod
+`0001`–`0012` applied to dev + staging. **Next: Beta & Launch (Wk20–28)** — create the prod
 env per `docs/PRODUCTION.md`, onboard the validation-kit beta users, then launch. Remaining
 founder gate: the Google-organic rank-tracking vendor (unlocks the SEO score).
 
@@ -232,6 +232,16 @@ founder gate: the Google-organic rank-tracking vendor (unlocks the SEO score).
   the `(app)` layout. Impersonation is **disclosed to customers** (founder decision) via the
   access log on `/settings`. Read-only target view at `/admin/viewing`. Verified end-to-end
   (rolled-back SQL): staff-only, ends cleanly, non-staff blocked, customer sees the disclosure.
+- **Complimentary (comped) accounts (migration `0012`):** super-admin toggle that grants a paid
+  tier with NO Stripe subscription — for beta users, internal test accounts, partners. Columns
+  `accounts.is_complimentary` + `comp_reason`; staff RPC `admin_set_complimentary(account, on/off,
+  tier, reason)` (SECURITY DEFINER, staff-gated). `tier` still drives per-tier caps, so a comp
+  account behaves exactly like a paying one. Comp accounts have no `stripe_subscription_id`, so the
+  Stripe webhook never touches them; revoking only force-downgrades non-subscribers (never clobbers
+  a real payer). Toggle lives in the `/admin` account table (`comp-toggle.tsx`);
+  `admin_search_accounts` now returns comp status. Customer sees a "Complimentary" badge on
+  `/settings` with upgrade buttons hidden. Verified: the RPC through its staff-gated path comps an
+  account to consultant.
 
 ## Live API pricing check (confirmed 2026-07-20)
 

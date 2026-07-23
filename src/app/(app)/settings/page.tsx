@@ -30,6 +30,7 @@ export default async function SettingsPage() {
         tier={account.tier}
         billingStatus={account.billing_status}
         hasCustomer={Boolean(account.stripe_customer_id)}
+        isComplimentary={account.is_complimentary}
       />
 
       <section className="mt-8 max-w-md border-t border-slate-200 pt-6 dark:border-slate-800">

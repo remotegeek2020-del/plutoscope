@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 
+import { CompToggle } from './comp-toggle';
 import { LoginAs } from './login-as';
 
 export const dynamic = 'force-dynamic';
@@ -48,6 +49,7 @@ export default async function AdminPage({
               <th className="py-2 pr-4 font-medium">Email</th>
               <th className="py-2 pr-4 font-medium">Tier</th>
               <th className="py-2 pr-4 font-medium">Projects</th>
+              <th className="py-2 pr-4 font-medium">Complimentary</th>
               <th className="py-2 pr-4 font-medium">Action</th>
             </tr>
           </thead>
@@ -59,13 +61,20 @@ export default async function AdminPage({
                 <td className="py-2 pr-4 capitalize">{account.tier}</td>
                 <td className="py-2 pr-4 tabular-nums">{account.projects}</td>
                 <td className="py-2 pr-4">
+                  <CompToggle
+                    accountId={account.id}
+                    isComplimentary={account.is_complimentary}
+                    compReason={account.comp_reason}
+                  />
+                </td>
+                <td className="py-2 pr-4">
                   <LoginAs accountId={account.id} />
                 </td>
               </tr>
             ))}
             {(accounts ?? []).length === 0 ? (
               <tr>
-                <td colSpan={5} className="py-4 text-sm text-slate-500">
+                <td colSpan={6} className="py-4 text-sm text-slate-500">
                   No accounts found.
                 </td>
               </tr>

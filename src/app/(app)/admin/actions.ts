@@ -1,6 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
@@ -8,6 +9,36 @@ import { IMPERSONATION_COOKIE } from '@/lib/admin/impersonation';
 import { createClient } from '@/lib/supabase/server';
 
 export type AdminActionResult = { ok: false; error: string };
+
+const compSchema = z.object({
+  accountId: z.string().uuid(),
+  complimentary: z.boolean(),
+  tier: z.enum(['starter', 'consultant']).default('consultant'),
+  reason: z.string().optional(),
+});
+
+/**
+ * Grant or revoke complimentary (comped) access for an account — a super-admin toggle that gives
+ * paid-tier access with no Stripe subscription. The RPC verifies the caller is staff and never
+ * downgrades a genuine Stripe subscriber. Useful for beta users and internal test accounts.
+ */
+export async function setComplimentary(input: unknown): Promise<AdminActionResult | void> {
+  const parsed = compSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? 'Invalid request.' };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('admin_set_complimentary', {
+    p_account: parsed.data.accountId,
+    p_complimentary: parsed.data.complimentary,
+    p_tier: parsed.data.tier,
+    p_reason: parsed.data.reason ?? '',
+  });
+  if (error) return { ok: false, error: error.message };
+
+  revalidatePath('/admin');
+}
 
 const startSchema = z.object({
   targetAccountId: z.string().uuid(),

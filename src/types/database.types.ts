@@ -19,8 +19,10 @@ export type Database = {
       accounts: {
         Row: {
           billing_status: Database["public"]["Enums"]["billing_status"]
+          comp_reason: string | null
           created_at: string
           id: string
+          is_complimentary: boolean
           name: string | null
           onboarded_at: string | null
           owner_id: string
@@ -34,8 +36,10 @@ export type Database = {
         }
         Insert: {
           billing_status?: Database["public"]["Enums"]["billing_status"]
+          comp_reason?: string | null
           created_at?: string
           id?: string
+          is_complimentary?: boolean
           name?: string | null
           onboarded_at?: string | null
           owner_id: string
@@ -49,8 +53,10 @@ export type Database = {
         }
         Update: {
           billing_status?: Database["public"]["Enums"]["billing_status"]
+          comp_reason?: string | null
           created_at?: string
           id?: string
+          is_complimentary?: boolean
           name?: string | null
           onboarded_at?: string | null
           owner_id?: string
@@ -500,7 +506,18 @@ export type Database = {
           billing_status: string
           owner_email: string
           projects: number
+          is_complimentary: boolean
+          comp_reason: string | null
         }[]
+      }
+      admin_set_complimentary: {
+        Args: {
+          p_account: string
+          p_complimentary: boolean
+          p_tier: string
+          p_reason: string
+        }
+        Returns: undefined
       }
       admin_staff_role: {
         Args: Record<PropertyKey, never>
