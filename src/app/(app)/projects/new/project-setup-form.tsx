@@ -36,6 +36,20 @@ export function ProjectSetupForm({ tier, maxTopics, maxPromptsPerTopic, maxCompe
     setList(list.filter((_, i) => i !== index));
   };
 
+  // Enter inside a single-line field would otherwise submit the whole form (default HTML behavior),
+  // creating the project before the user is done. Instead: in the last topic/competitor row Enter
+  // adds a new row; everywhere else it does nothing. Only the Create button submits.
+  const onFieldKeyDown =
+    (list: string[], setList: (v: string[]) => void, index: number, max: number) =>
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key !== 'Enter') return;
+      event.preventDefault();
+      const isLast = index === list.length - 1;
+      if (isLast && list[index].trim() && list.length < max) {
+        setList([...list, '']);
+      }
+    };
+
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setError(null);
@@ -74,6 +88,9 @@ export function ProjectSetupForm({ tier, maxTopics, maxPromptsPerTopic, maxCompe
             placeholder="example.com"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') e.preventDefault();
+            }}
             required
           />
         </label>
@@ -84,6 +101,9 @@ export function ProjectSetupForm({ tier, maxTopics, maxPromptsPerTopic, maxCompe
             placeholder="My site"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') e.preventDefault();
+            }}
           />
         </label>
       </section>
@@ -109,6 +129,7 @@ export function ProjectSetupForm({ tier, maxTopics, maxPromptsPerTopic, maxCompe
                     placeholder="e.g. best CRM software"
                     value={topic}
                     onChange={(e) => updateAt(topics, setTopics, index, e.target.value)}
+                    onKeyDown={onFieldKeyDown(topics, setTopics, index, maxTopics)}
                   />
                   <button
                     type="button"
@@ -156,6 +177,7 @@ export function ProjectSetupForm({ tier, maxTopics, maxPromptsPerTopic, maxCompe
                 placeholder="competitor.com"
                 value={competitor}
                 onChange={(e) => updateAt(competitors, setCompetitors, index, e.target.value)}
+                onKeyDown={onFieldKeyDown(competitors, setCompetitors, index, maxCompetitors)}
               />
               <button
                 type="button"
