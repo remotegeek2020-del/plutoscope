@@ -18,6 +18,8 @@ export interface TierLimits {
   maxTopicsPerProject: number;
   /** Hard cap on how many prompts a single topic may expand into (the cost lever). */
   maxPromptsPerTopic: number;
+  /** Max pages a single whole-site audit scan will crawl (a crawl-credit cost lever). */
+  maxAuditPagesPerScan: number;
   /** Tracking refresh cadence. MVP is weekly across tiers (Part I §7). */
   refreshCadence: 'weekly';
 }
@@ -28,6 +30,7 @@ export const TIER_LIMITS: Record<AccountTier, TierLimits> = {
     maxCompetitorsPerProject: 1,
     maxTopicsPerProject: 3,
     maxPromptsPerTopic: 3,
+    maxAuditPagesPerScan: 5,
     refreshCadence: 'weekly',
   },
   starter: {
@@ -35,6 +38,7 @@ export const TIER_LIMITS: Record<AccountTier, TierLimits> = {
     maxCompetitorsPerProject: 3,
     maxTopicsPerProject: 10,
     maxPromptsPerTopic: 5,
+    maxAuditPagesPerScan: 10,
     refreshCadence: 'weekly',
   },
   consultant: {
@@ -42,6 +46,7 @@ export const TIER_LIMITS: Record<AccountTier, TierLimits> = {
     maxCompetitorsPerProject: 3,
     maxTopicsPerProject: 20,
     maxPromptsPerTopic: 8,
+    maxAuditPagesPerScan: 20,
     refreshCadence: 'weekly',
   },
   // Agency/Enterprise are Phase 2/3 (Part I §6). Placeholder limits until those tiers ship.
@@ -50,6 +55,7 @@ export const TIER_LIMITS: Record<AccountTier, TierLimits> = {
     maxCompetitorsPerProject: 5,
     maxTopicsPerProject: 40,
     maxPromptsPerTopic: 10,
+    maxAuditPagesPerScan: 40,
     refreshCadence: 'weekly',
   },
   enterprise: {
@@ -57,6 +63,7 @@ export const TIER_LIMITS: Record<AccountTier, TierLimits> = {
     maxCompetitorsPerProject: 10,
     maxTopicsPerProject: 100,
     maxPromptsPerTopic: 12,
+    maxAuditPagesPerScan: 100,
     refreshCadence: 'weekly',
   },
 };

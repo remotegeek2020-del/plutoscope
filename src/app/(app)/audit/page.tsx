@@ -14,6 +14,8 @@ import { createClient } from '@/lib/supabase/server';
 import { AuditForm } from './audit-form';
 
 export const dynamic = 'force-dynamic';
+// A whole-site scan crawls several pages in one request; give the server action headroom.
+export const maxDuration = 60;
 
 const SEVERITY_STYLES: Record<AuditSeverity, string> = {
   high: 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300',
@@ -47,8 +49,9 @@ export default async function AuditReportPage() {
   const { data: reports } = await supabase
     .from('audit_reports')
     .select('id, page_url, overall_score, created_at, seo_findings, aeo_findings, geo_findings')
+    .order('overall_score', { ascending: true, nullsFirst: false })
     .order('created_at', { ascending: false })
-    .limit(20);
+    .limit(50);
 
   return (
     <div>
@@ -66,14 +69,18 @@ export default async function AuditReportPage() {
         </p>
         <p className="font-medium">How it works:</p>
         <ol className="ml-4 list-decimal space-y-1">
-          <li>You give it a page URL (e.g. a page on payprotec.com).</li>
-          <li>Plutoscope crawls that page and runs 12 checks a search/AI engine cares about.</li>
           <li>
-            It scores the page in three areas — <strong>SEO, AEO, GEO</strong> — and lists the exact
+            <strong>Audit this page</strong> checks one URL, or <strong>Scan whole site</strong>{' '}
+            finds your pages and audits them for you (up to your plan&apos;s page limit).
+          </li>
+          <li>Plutoscope crawls each page and runs 12 checks a search/AI engine cares about.</li>
+          <li>
+            It scores each page in three areas — <strong>SEO, AEO, GEO</strong> — and lists the exact
             fixes, worst first, each tagged with the area it improves.
           </li>
           <li>You (or your web person) apply the fixes; a stronger page is easier to cite and rank.</li>
         </ol>
+        <p>Below, pages are sorted <strong>worst-scoring first</strong> — fix those to gain the most.</p>
         <p className="font-medium">What the three scores mean:</p>
         <DisciplineGlossary />
         <p className="font-medium">How to read the number:</p>

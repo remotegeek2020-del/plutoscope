@@ -6,10 +6,13 @@ import { type BriefStructure, parseBrief } from './brief-render';
 
 // Content brief draft generator (Part VIII §47 Week 15). Given a topic and its citation-gap
 // context, asks an LLM for a structured brief (human-in-the-loop by design — a plan to review, not
-// auto-published copy). Server-only. Uses OpenAI when OPENAI_API_KEY is set, otherwise Gemini
-// (GEMINI_API_KEY) — engines stay swappable. Both are asked for JSON so we can render markdown, a
+// auto-published copy). Server-only. Provider preference: OpenRouter (one key, many models) →
+// OpenAI → Gemini — whichever key is set. This is the CONTENT side only; visibility tracking stays
+// on the three web-grounded engines. All are asked for JSON so we can render markdown, a
 // paste-ready HTML page, and a valid FAQ schema from one call (see brief-render.ts).
 
+const OPENROUTER_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
+const OPENROUTER_DEFAULT_MODEL = 'openai/gpt-4o-mini';
 const OPENAI_CHAT_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 const OPENAI_DEFAULT_MODEL = 'gpt-4o';
 const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -26,15 +29,50 @@ const SYSTEM_PROMPT = [
 ].join(' ');
 
 export async function generateBrief(topic: string, gapContext: string): Promise<BriefStructure> {
-  const { OPENAI_API_KEY, GEMINI_API_KEY } = getServerEnv();
+  const { OPENROUTER_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY } = getServerEnv();
   const userContent = `Topic: ${topic}\n\nVisibility gap context:\n${gapContext}\n\nWrite the content brief as JSON.`;
 
   let raw: string;
-  if (OPENAI_API_KEY) raw = await generateWithOpenAI(OPENAI_API_KEY, userContent);
+  if (OPENROUTER_API_KEY) raw = await generateWithOpenRouter(OPENROUTER_API_KEY, userContent);
+  else if (OPENAI_API_KEY) raw = await generateWithOpenAI(OPENAI_API_KEY, userContent);
   else if (GEMINI_API_KEY) raw = await generateWithGemini(GEMINI_API_KEY, userContent);
-  else throw new Error('No LLM key configured — set OPENAI_API_KEY or GEMINI_API_KEY.');
+  else throw new Error('No LLM key configured — set OPENROUTER_API_KEY, OPENAI_API_KEY or GEMINI_API_KEY.');
 
   return parseBrief(raw);
+}
+
+// OpenRouter exposes an OpenAI-compatible chat API, so one key reaches many models. Pick the model
+// via OPENROUTER_MODEL (e.g. "anthropic/claude-3.5-sonnet", "google/gemini-flash-1.5").
+async function generateWithOpenRouter(apiKey: string, userContent: string): Promise<string> {
+  const response = await fetch(OPENROUTER_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'X-Title': 'Plutoscope',
+    },
+    body: JSON.stringify({
+      model: process.env.OPENROUTER_MODEL ?? OPENROUTER_DEFAULT_MODEL,
+      temperature: 0.7,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: userContent },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`OpenRouter error ${response.status}: ${body.slice(0, 500)}`);
+  }
+
+  const json = (await response.json()) as {
+    choices?: { message?: { content?: string } }[];
+  };
+  const content = json.choices?.[0]?.message?.content;
+  if (!content) throw new Error('OpenRouter returned no content');
+  return content;
 }
 
 async function generateWithOpenAI(apiKey: string, userContent: string): Promise<string> {

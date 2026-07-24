@@ -27,6 +27,8 @@ const serverSchema = z.object({
   OPENAI_API_KEY: z.string().min(1).optional(),
   PERPLEXITY_API_KEY: z.string().min(1).optional(),
   GEMINI_API_KEY: z.string().min(1).optional(),
+  // OpenRouter — one key, many models — used for content/brief generation (not tracking).
+  OPENROUTER_API_KEY: z.string().min(1).optional(),
   FIRECRAWL_API_KEY: z.string().min(1).optional(),
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
@@ -45,6 +47,7 @@ export function getServerEnv(): ServerEnv {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     PERPLEXITY_API_KEY: process.env.PERPLEXITY_API_KEY,
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
     FIRECRAWL_API_KEY: process.env.FIRECRAWL_API_KEY,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
