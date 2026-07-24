@@ -37,10 +37,45 @@ export function GenerateBriefButton({
   );
 }
 
+function CopyBlock({ label, hint, code }: { label: string; hint: string; code: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <details className="mt-3 rounded-md border border-slate-200 dark:border-slate-800">
+      <summary className="flex cursor-pointer select-none items-center justify-between px-3 py-2 text-xs font-medium">
+        <span>{label}</span>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigator.clipboard.writeText(code).then(() => {
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1500);
+            });
+          }}
+          className="rounded-md bg-instrument px-2.5 py-1 text-xs font-medium text-white"
+        >
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </summary>
+      <div className="px-3 pb-3">
+        <p className="mb-2 text-xs text-slate-500 dark:text-slate-400">{hint}</p>
+        <pre className="max-h-64 overflow-auto rounded-md bg-slate-50 p-3 text-[11px] leading-relaxed dark:bg-slate-900">
+          <code>{code}</code>
+        </pre>
+      </div>
+    </details>
+  );
+}
+
 export function BriefEditor({
   brief,
 }: {
-  brief: { id: string; draft_content: string | null; status: string };
+  brief: {
+    id: string;
+    draft_content: string | null;
+    page_html: string | null;
+    faq_schema: string | null;
+    status: string;
+  };
 }) {
   const router = useRouter();
   const [draft, setDraft] = useState(brief.draft_content ?? '');
@@ -99,6 +134,26 @@ export function BriefEditor({
         {saved ? <span className="text-xs text-emerald-600">Saved.</span> : null}
         {error ? <span className="text-xs text-red-600">{error}</span> : null}
       </div>
+
+      {brief.page_html || brief.faq_schema ? (
+        <div className="mt-4 border-t border-slate-200 pt-3 dark:border-slate-800">
+          <p className="text-xs font-semibold">Easy mode — paste these into your site:</p>
+          {brief.page_html ? (
+            <CopyBlock
+              label="1. Page HTML"
+              hint="Paste this into a new page in your CMS (WordPress, Webflow, etc.) and publish. It's the actual page content the AI will read."
+              code={brief.page_html}
+            />
+          ) : null}
+          {brief.faq_schema ? (
+            <CopyBlock
+              label="2. FAQ schema (structured data)"
+              hint="Paste this into the same page's HTML head. It tells AI engines and Google that the page answers these questions — it describes your real content, it doesn't replace it."
+              code={brief.faq_schema}
+            />
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -41,7 +41,7 @@ export default async function ContentBriefPage({
     supabase.from('topics').select('id, text').eq('project_id', active.id),
     supabase
       .from('content_briefs')
-      .select('id, topic_id, gap_summary, draft_content, status, created_at')
+      .select('id, topic_id, gap_summary, draft_content, page_html, faq_schema, status, created_at')
       .eq('project_id', active.id)
       .order('created_at', { ascending: false }),
   ]);
@@ -91,6 +91,37 @@ export default async function ContentBriefPage({
           <strong>Why it works:</strong> AI answer engines cite pages that clearly and credibly
           answer the exact question. The brief is engineered to produce exactly that kind of page —
           which is what moves you from invisible to cited.
+        </p>
+      </HelpNote>
+
+      <HelpNote title="Why not just a magic script that does it all automatically?">
+        <p>
+          It&apos;s a fair thing to want — but a snippet that auto-injects content wouldn&apos;t
+          actually work, and we won&apos;t pretend otherwise. Here&apos;s the honest reasoning:
+        </p>
+        <ul className="ml-4 list-disc space-y-1">
+          <li>
+            <strong>AI engines cite real, server-rendered content on your domain.</strong> Text
+            injected by a client-side script often isn&apos;t seen or trusted by crawlers the same
+            way — &ldquo;content that only exists in JavaScript&rdquo; is a known blind spot, so a
+            magic script would add words no AI ever reads.
+          </li>
+          <li>
+            <strong>Auto-publishing unreviewed AI text is risky.</strong> A single wrong fact would
+            go live on your site under your name. Citations are earned by being credible — one bad
+            claim undoes it.
+          </li>
+          <li>
+            <strong>The citation comes from you genuinely having the best answer.</strong> There is
+            no snippet that fakes that. Real page, real answer, on your domain — that&apos;s the
+            whole game.
+          </li>
+        </ul>
+        <p>
+          So instead of fake magic, we do the real easy mode:{' '}
+          <strong>we generate the finished page HTML and its structured-data script for you</strong>{' '}
+          (on each brief below). You paste two blocks into your site and publish — minutes of work,
+          and it actually earns citations.
         </p>
       </HelpNote>
 

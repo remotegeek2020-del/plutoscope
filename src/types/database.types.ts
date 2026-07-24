@@ -201,8 +201,10 @@ export type Database = {
         Row: {
           created_at: string
           draft_content: string | null
+          faq_schema: string | null
           gap_summary: string | null
           id: string
+          page_html: string | null
           project_id: string
           status: Database["public"]["Enums"]["content_brief_status"]
           topic_id: string | null
@@ -211,8 +213,10 @@ export type Database = {
         Insert: {
           created_at?: string
           draft_content?: string | null
+          faq_schema?: string | null
           gap_summary?: string | null
           id?: string
+          page_html?: string | null
           project_id: string
           status?: Database["public"]["Enums"]["content_brief_status"]
           topic_id?: string | null
@@ -221,8 +225,10 @@ export type Database = {
         Update: {
           created_at?: string
           draft_content?: string | null
+          faq_schema?: string | null
           gap_summary?: string | null
           id?: string
+          page_html?: string | null
           project_id?: string
           status?: Database["public"]["Enums"]["content_brief_status"]
           topic_id?: string | null

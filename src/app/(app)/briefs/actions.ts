@@ -4,7 +4,8 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { analyzeGaps, type CitationRef } from '@/lib/competitive/gap-analysis';
-import { generateBriefDraft } from '@/lib/content/generate-brief';
+import { briefToFaqSchema, briefToHtml, briefToMarkdown } from '@/lib/content/brief-render';
+import { generateBrief as generateBriefContent } from '@/lib/content/generate-brief';
 import { createClient } from '@/lib/supabase/server';
 import { normalizeDomain } from '@/lib/tracking/url';
 
@@ -130,12 +131,14 @@ export async function generateBrief(input: unknown): Promise<BriefActionResult> 
   );
 
   try {
-    const draft = await generateBriefDraft(topic.text, gapContext);
+    const structure = await generateBriefContent(topic.text, gapContext);
     const { error } = await supabase.from('content_briefs').insert({
       project_id: project.id,
       topic_id: topic.id,
       gap_summary: gapContext,
-      draft_content: draft,
+      draft_content: briefToMarkdown(structure),
+      page_html: briefToHtml(structure),
+      faq_schema: briefToFaqSchema(structure),
       status: 'draft',
     });
     if (error) return { ok: false, error: error.message };
