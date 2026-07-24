@@ -91,6 +91,38 @@ export default async function AuditReportPage() {
         </p>
       </HelpNote>
 
+      <HelpNote title="How do I add this code to my website?">
+        <p>
+          Some fixes give you a small piece of code to paste onto a page. You do{' '}
+          <strong>not</strong> need a developer, and you don’t write anything — Plutoscope makes the
+          code for you (in <strong>Content Briefs</strong>, the “page code” block, with a Copy
+          button). Then you paste it. Here’s where, on the popular website builders:
+        </p>
+        <ul className="ml-4 list-disc space-y-1">
+          <li>
+            <strong>WordPress:</strong> edit the page, add a “Custom HTML” block, and paste the code
+            there. (Or use a free plugin like “Insert Headers and Footers”.)
+          </li>
+          <li>
+            <strong>Wix:</strong> Settings → Custom Code → Add code, paste it, and apply it to that
+            page.
+          </li>
+          <li>
+            <strong>Squarespace:</strong> page menu → Settings → Advanced → Code Injection, or add a
+            “Code” block on the page.
+          </li>
+          <li>
+            <strong>Shopify:</strong> edit the page and paste the code in the “Show HTML” (&lt;&gt;)
+            view of the description box.
+          </li>
+        </ul>
+        <p>
+          <strong>Not sure or don’t want to?</strong> Copy the code and email it to whoever set up
+          your website — it’s a 2-minute paste job for them, and you can tell them exactly where it
+          goes.
+        </p>
+      </HelpNote>
+
       {!projects || projects.length === 0 ? (
         <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
           Create a project first, then run an audit on any of its pages.

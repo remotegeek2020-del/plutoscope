@@ -102,15 +102,15 @@ const SEO_RULES: Rule[] = [
     return {
       id: 'seo-meta-description',
       discipline: 'seo',
-      label: 'Meta description',
+      label: 'Search result summary',
       passed: has,
       severity: 'medium',
       recommendation: has
         ? undefined
-        : 'This page has no meta description — the little grey summary under the blue link in Google.',
+        : 'This page has no summary line — the little grey text that shows under the blue link in Google.',
       howToFix: has
         ? undefined
-        : 'In your website editor, find the “meta description” (or “SEO description”) box and write one clear sentence, about 150 letters, describing the page.',
+        : 'In your website editor, look for a box called “meta description”, “search description”, or “SEO description”, and write one clear sentence about the page (about 150 letters).',
     };
   },
   (page) => {
@@ -230,15 +230,15 @@ const GEO_RULES: Rule[] = [
     return {
       id: 'geo-structured-data',
       discipline: 'geo',
-      label: 'Structured data (AI cheat-sheet)',
+      label: 'An “about this page” code snippet for AI',
       passed,
       severity: 'high',
       recommendation: passed
         ? undefined
-        : 'This page has no “structured data” — a hidden cheat-sheet in the page code that tells Google and AI exactly what the page is about.',
+        : 'This page is missing a small piece of code that quietly tells Google and AI what the page is about (its main questions and answers). Pages that have it get picked more often.',
       howToFix: passed
         ? undefined
-        : 'Easiest way: open Content Briefs, generate a brief for this topic, and copy its “FAQ schema” block onto the page. Or ask your web person to add FAQ/Article schema (JSON-LD).',
+        : 'Good news — you don’t write any code yourself. Plutoscope makes it for you: open Content Briefs, click Generate, and copy the “page code” block. Then paste it into this page on your website. New to pasting code? See “How do I add this code to my website?” at the top of this screen.',
     };
   },
   (page) => {

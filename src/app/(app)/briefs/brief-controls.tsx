@@ -147,8 +147,8 @@ export function BriefEditor({
           ) : null}
           {brief.faq_schema ? (
             <CopyBlock
-              label="2. FAQ schema (structured data)"
-              hint="Paste this into the same page's HTML head. It tells AI engines and Google that the page answers these questions — it describes your real content, it doesn't replace it."
+              label="2. Page code for AI (the “about this page” snippet)"
+              hint="Paste this small code snippet onto the same page. It quietly tells Google and AI what your page answers — you don't write it, just copy it. New to pasting code? The Audit screen has a plain 'How do I add code to my website?' guide."
               code={brief.faq_schema}
             />
           ) : null}
