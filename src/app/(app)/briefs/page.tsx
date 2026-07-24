@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { HelpNote } from '@/app/(app)/_components/help-note';
 import { getActiveProjectId, resolveActiveProject } from '@/lib/active-project';
 import { createClient } from '@/lib/supabase/server';
 
@@ -57,6 +58,42 @@ export default async function ContentBriefPage({
         human-in-the-loop, never auto-published.
       </p>
 
+      <HelpNote title="What is a content brief and how does it fix my problem?">
+        <p>
+          A <strong>content brief is a blueprint for one web page</strong> — a plan you (or a
+          writer) use to build a page on your own site. Plutoscope doesn&apos;t publish anything; it
+          tells you <em>exactly what page to create</em> so the AI starts recommending you.
+        </p>
+        <p className="font-medium">How to use it, step by step:</p>
+        <ol className="ml-4 list-decimal space-y-1">
+          <li>
+            Pick a topic below and click <strong>Generate brief</strong>. Plutoscope reads your gap
+            data (which questions competitors win and you don&apos;t) and drafts a plan.
+          </li>
+          <li>
+            The brief gives you a suggested <strong>headline</strong>, a <strong>direct answer</strong>{' '}
+            to put at the top, <strong>FAQ questions</strong>, and <strong>key points to cover</strong>.
+          </li>
+          <li>
+            <strong>Edit</strong> it if you like, then mark it <strong>Approved</strong> (your note
+            that you&apos;re acting on it).
+          </li>
+          <li>
+            Hand the brief to whoever runs your website. They <strong>write and publish</strong> that
+            page on your domain, following the plan.
+          </li>
+          <li>
+            Weeks later, <strong>re-run tracking</strong>. As the AIs pick up your new page, that
+            gap&apos;s &ldquo;—&rdquo; turns into a citation and your score climbs.
+          </li>
+        </ol>
+        <p>
+          <strong>Why it works:</strong> AI answer engines cite pages that clearly and credibly
+          answer the exact question. The brief is engineered to produce exactly that kind of page —
+          which is what moves you from invisible to cited.
+        </p>
+      </HelpNote>
+
       {projects.length > 1 ? (
         <div className="mt-4 flex flex-wrap gap-2">
           {projects.map((p) => (
@@ -76,7 +113,11 @@ export default async function ContentBriefPage({
       ) : null}
 
       <section className="mt-6">
-        <h2 className="text-sm font-semibold">Topics</h2>
+        <h2 className="text-sm font-semibold">Step 1 — Generate a brief from a topic</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+          Click &ldquo;Generate brief&rdquo; next to a topic to draft a page plan for the questions
+          you&apos;re losing on.
+        </p>
         {(topics ?? []).length === 0 ? (
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             No topics yet — add some in Project Setup.
@@ -97,7 +138,11 @@ export default async function ContentBriefPage({
       </section>
 
       <section className="mt-8">
-        <h2 className="text-sm font-semibold">Briefs</h2>
+        <h2 className="text-sm font-semibold">Step 2 — Your page blueprints</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+          Each brief is a plan for one page to build on your site. Edit it, approve it, then have
+          that page written and published — that&apos;s what earns the citation.
+        </p>
         {(briefs ?? []).length === 0 ? (
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             No briefs yet. Generate one from a topic above.
