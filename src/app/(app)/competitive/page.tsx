@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { DisciplineGlossary } from '@/app/(app)/_components/discipline-glossary';
 import { HelpNote } from '@/app/(app)/_components/help-note';
 import { ensureAccount } from '@/lib/accounts';
 import { getActiveProjectId, resolveActiveProject } from '@/lib/active-project';
@@ -164,6 +165,16 @@ export default async function CompetitiveViewPage({
           <strong>Goal:</strong> turn your &ldquo;—&rdquo; cells into numbers. The Content Briefs and
           Audit screens help you do that; re-run tracking weekly to watch it improve.
         </p>
+      </HelpNote>
+
+      <HelpNote title="Which of SEO / GEO / AEO does this screen affect?">
+        <p>
+          This screen measures <strong>GEO</strong> and <strong>AEO</strong> — whether generative AI
+          engines cite you (GEO) and whether you land in the top/answer spot (AEO). It does not
+          measure <strong>SEO</strong> (classic Google rank) yet — that arrives once a rank-tracking
+          vendor is connected.
+        </p>
+        <DisciplineGlossary />
       </HelpNote>
 
       {projects.length > 1 ? (

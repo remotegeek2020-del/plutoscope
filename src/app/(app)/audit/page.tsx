@@ -1,3 +1,8 @@
+import {
+  DisciplineBadge,
+  DisciplineGlossary,
+} from '@/app/(app)/_components/discipline-glossary';
+import { HelpNote } from '@/app/(app)/_components/help-note';
 import { scoreAudit } from '@/lib/audit/score';
 import type { AuditFinding, AuditSeverity } from '@/lib/audit/types';
 import { createClient } from '@/lib/supabase/server';
@@ -49,6 +54,29 @@ export default async function AuditReportPage() {
       <p className="mt-1 text-sm text-slate-400">
         Per-page SEO / AEO / GEO readiness with a prioritized fix list. Crawled via Firecrawl.
       </p>
+
+      <HelpNote title="What does the Audit do, and how does it fix my problem?">
+        <p>
+          The Competitive screen tells you the AI doesn&apos;t cite you. The Audit tells you{' '}
+          <strong>why</strong> — by inspecting one of your actual web pages.
+        </p>
+        <p className="font-medium">How it works:</p>
+        <ol className="ml-4 list-decimal space-y-1">
+          <li>You give it a page URL (e.g. a page on payprotec.com).</li>
+          <li>Plutoscope crawls that page and runs 12 checks a search/AI engine cares about.</li>
+          <li>
+            It scores the page in three areas — <strong>SEO, AEO, GEO</strong> — and lists the exact
+            fixes, worst first, each tagged with the area it improves.
+          </li>
+          <li>You (or your web person) apply the fixes; a stronger page is easier to cite and rank.</li>
+        </ol>
+        <p className="font-medium">What the three scores mean:</p>
+        <DisciplineGlossary />
+        <p>
+          <strong>Audit vs. Content Briefs:</strong> a Brief creates a <em>new</em> page to fill a
+          gap; the Audit improves an <em>existing</em> page. Both raise the same three scores.
+        </p>
+      </HelpNote>
 
       {!projects || projects.length === 0 ? (
         <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">
@@ -111,6 +139,7 @@ export default async function AuditReportPage() {
                           >
                             {rec.severity}
                           </span>
+                          <DisciplineBadge discipline={rec.discipline} />
                           <span>
                             <span className="font-medium">{rec.label}.</span>{' '}
                             <span className="text-slate-600 dark:text-slate-400">
