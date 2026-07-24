@@ -74,7 +74,7 @@ export default async function DashboardPage() {
         <section className="mt-6 rounded-xl border border-instrument/30 bg-instrument/5 p-4 dark:border-pluto/30 dark:bg-pluto/5">
           <h2 className="text-sm font-semibold text-instrument dark:text-pluto">Your next steps</h2>
           <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
-            The highest-impact things to do right now, based on your data.
+            The best things to do next, picked for you. Do one, and we’ll show you what comes after.
           </p>
           <ul className="mt-3 flex flex-col gap-2">
             {nextSteps.map((step) => (
