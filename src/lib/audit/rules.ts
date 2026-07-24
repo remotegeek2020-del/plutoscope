@@ -67,11 +67,16 @@ const SEO_RULES: Rule[] = [
     return {
       id: 'seo-title-present',
       discipline: 'seo',
-      label: 'Page has a title',
+      label: 'Page title',
       passed: title.length > 0,
       severity: 'high',
       detail: title ? `Title: "${title}"` : 'No <title> found.',
-      recommendation: title ? undefined : 'Add a descriptive <title> tag.',
+      recommendation: title
+        ? undefined
+        : 'This page has no title — the clickable blue headline people see in Google.',
+      howToFix: title
+        ? undefined
+        : 'In your website editor, find the “Page title” or “SEO title” box and write what the page is about, e.g. “Merchant Services for Small Business”.',
     };
   },
   (page) => {
@@ -80,11 +85,16 @@ const SEO_RULES: Rule[] = [
     return {
       id: 'seo-title-length',
       discipline: 'seo',
-      label: 'Title length is 10–60 characters',
+      label: 'Title length',
       passed,
       severity: 'low',
       detail: `Title length: ${len}.`,
-      recommendation: passed ? undefined : 'Keep the title between 10 and 60 characters.',
+      recommendation: passed
+        ? undefined
+        : 'The title is too short or too long. Very long titles get cut off in Google.',
+      howToFix: passed
+        ? undefined
+        : 'Edit the page title so it is about 10–60 letters — one short, clear sentence.',
     };
   },
   (page) => {
@@ -92,10 +102,15 @@ const SEO_RULES: Rule[] = [
     return {
       id: 'seo-meta-description',
       discipline: 'seo',
-      label: 'Page has a meta description',
+      label: 'Meta description',
       passed: has,
       severity: 'medium',
-      recommendation: has ? undefined : 'Add a concise meta description (~150 chars).',
+      recommendation: has
+        ? undefined
+        : 'This page has no meta description — the little grey summary under the blue link in Google.',
+      howToFix: has
+        ? undefined
+        : 'In your website editor, find the “meta description” (or “SEO description”) box and write one clear sentence, about 150 letters, describing the page.',
     };
   },
   (page) => {
@@ -104,11 +119,16 @@ const SEO_RULES: Rule[] = [
     return {
       id: 'seo-single-h1',
       discipline: 'seo',
-      label: 'Exactly one H1 heading',
+      label: 'Main headline (H1)',
       passed,
       severity: 'high',
       detail: `Found ${h1s.length} H1 heading(s).`,
-      recommendation: passed ? undefined : 'Use exactly one H1 that states the page topic.',
+      recommendation: passed
+        ? undefined
+        : `A page should have exactly one big main headline at the top (called an H1). This page has ${h1s.length}.`,
+      howToFix: passed
+        ? undefined
+        : 'Give the page one clear main headline that says what it is about, and make the other headings smaller (sub-headings).',
     };
   },
   (page) => {
@@ -116,10 +136,15 @@ const SEO_RULES: Rule[] = [
     return {
       id: 'seo-heading-structure',
       discipline: 'seo',
-      label: 'Uses subheadings for structure',
+      label: 'Subheadings',
       passed,
       severity: 'medium',
-      recommendation: passed ? undefined : 'Break content up with H2/H3 subheadings.',
+      recommendation: passed
+        ? undefined
+        : 'The page is one big block of text with no sub-headings. Headings help people and AI scan it.',
+      howToFix: passed
+        ? undefined
+        : 'Break the page into sections with sub-headings, like “Pricing”, “How it works”, “FAQ”.',
     };
   },
 ];
@@ -130,12 +155,15 @@ const AEO_RULES: Rule[] = [
     return {
       id: 'aeo-question-headings',
       discipline: 'aeo',
-      label: 'Has question-style headings',
+      label: 'Question headings',
       passed,
       severity: 'medium',
       recommendation: passed
         ? undefined
-        : 'Add question-form headings (e.g. "What is …?") to match answer queries.',
+        : 'None of your headings are written as questions. People ask AI questions, so pages with matching questions get picked.',
+      howToFix: passed
+        ? undefined
+        : 'Add headings written as real questions, e.g. “What is a merchant account?” or “How much does it cost?”.',
     };
   },
   (page) => {
@@ -143,12 +171,15 @@ const AEO_RULES: Rule[] = [
     return {
       id: 'aeo-structured-lists',
       discipline: 'aeo',
-      label: 'Contains extractable lists',
+      label: 'Bullet / numbered lists',
       passed,
       severity: 'medium',
       recommendation: passed
         ? undefined
-        : 'Use bulleted/numbered lists so answer engines can extract steps or points.',
+        : 'This page has no bullet points or numbered lists. AI loves lists because it can lift out the steps.',
+      howToFix: passed
+        ? undefined
+        : 'Turn some text into a bullet list or numbered steps, e.g. “3 steps to get started: 1… 2… 3…”.',
     };
   },
   (page) => {
@@ -161,13 +192,16 @@ const AEO_RULES: Rule[] = [
     return {
       id: 'aeo-concise-answer',
       discipline: 'aeo',
-      label: 'Leads with a concise answer',
+      label: 'Quick answer up top',
       passed,
       severity: 'low',
       detail: `Opening paragraph: ${words} words.`,
       recommendation: passed
         ? undefined
-        : 'Open with a direct, concise answer (≤ ~60 words) before elaborating.',
+        : 'The page doesn’t start with a short, direct answer. AI grabs the first clear answer it sees.',
+      howToFix: passed
+        ? undefined
+        : 'At the very top, add one or two short sentences that directly answer the page’s main question, before the longer details.',
     };
   },
 ];
@@ -179,11 +213,16 @@ const GEO_RULES: Rule[] = [
     return {
       id: 'geo-outbound-citations',
       discipline: 'geo',
-      label: 'Cites external sources',
+      label: 'Links to trusted sources',
       passed,
       severity: 'medium',
       detail: `${count} outbound link(s).`,
-      recommendation: passed ? undefined : 'Cite authoritative external sources to build trust.',
+      recommendation: passed
+        ? undefined
+        : 'This page doesn’t link to any trusted outside sources. Linking to good sources makes your page look more trustworthy to AI.',
+      howToFix: passed
+        ? undefined
+        : 'Add a link or two to a respected source (an industry site, or an official/government page) where it fits naturally.',
     };
   },
   (page) => {
@@ -191,12 +230,15 @@ const GEO_RULES: Rule[] = [
     return {
       id: 'geo-structured-data',
       discipline: 'geo',
-      label: 'Has schema.org structured data',
+      label: 'Structured data (AI cheat-sheet)',
       passed,
       severity: 'high',
       recommendation: passed
         ? undefined
-        : 'Add JSON-LD structured data (Article/FAQ/Product) to clarify entities for AI engines.',
+        : 'This page has no “structured data” — a hidden cheat-sheet in the page code that tells Google and AI exactly what the page is about.',
+      howToFix: passed
+        ? undefined
+        : 'Easiest way: open Content Briefs, generate a brief for this topic, and copy its “FAQ schema” block onto the page. Or ask your web person to add FAQ/Article schema (JSON-LD).',
     };
   },
   (page) => {
@@ -204,12 +246,15 @@ const GEO_RULES: Rule[] = [
     return {
       id: 'geo-freshness',
       discipline: 'geo',
-      label: 'Shows a freshness signal',
+      label: 'Recent date',
       passed,
       severity: 'low',
       recommendation: passed
         ? undefined
-        : 'Surface a published/updated date; AI engines favor current content.',
+        : 'This page shows no recent date, so AI can’t tell if it’s up to date — and AI prefers fresh pages.',
+      howToFix: passed
+        ? undefined
+        : 'Show a “Last updated” date on the page, and refresh the content every few months.',
     };
   },
   (page) => {
@@ -218,11 +263,16 @@ const GEO_RULES: Rule[] = [
     return {
       id: 'geo-sufficient-depth',
       discipline: 'geo',
-      label: 'Has sufficient depth',
+      label: 'Enough detail',
       passed,
       severity: 'medium',
       detail: `${words} words.`,
-      recommendation: passed ? undefined : 'Thin pages are rarely cited — expand to 300+ words.',
+      recommendation: passed
+        ? undefined
+        : `This page is thin (about ${words} words). Short pages rarely get picked by AI.`,
+      howToFix: passed
+        ? undefined
+        : 'Add more helpful detail — aim for at least 300 words that genuinely answer the questions people ask.',
     };
   },
 ];

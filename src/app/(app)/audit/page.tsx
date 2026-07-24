@@ -156,12 +156,20 @@ export default async function AuditReportPage() {
                             {rec.severity}
                           </span>
                           <DisciplineBadge discipline={rec.discipline} />
-                          <span>
-                            <span className="font-medium">{rec.label}.</span>{' '}
-                            <span className="text-slate-600 dark:text-slate-400">
-                              {rec.recommendation}
-                            </span>
-                          </span>
+                          <div className="min-w-0">
+                            <div className="font-medium">{rec.label}</div>
+                            {rec.recommendation ? (
+                              <div className="text-slate-600 dark:text-slate-400">
+                                {rec.recommendation}
+                              </div>
+                            ) : null}
+                            {rec.howToFix ? (
+                              <div className="mt-1 rounded-md bg-slate-50 px-2 py-1.5 text-slate-700 dark:bg-slate-800/60 dark:text-slate-300">
+                                <span className="font-semibold">How to fix: </span>
+                                {rec.howToFix}
+                              </div>
+                            ) : null}
+                          </div>
                         </li>
                       ))}
                     </ul>

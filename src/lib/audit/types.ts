@@ -26,5 +26,8 @@ export interface AuditFinding {
   passed: boolean;
   severity: AuditSeverity;
   detail?: string;
+  /** Plain-language "why this matters / what's wrong" (shown for failed checks). */
   recommendation?: string;
+  /** Plain, concrete steps a non-expert can follow to fix it. */
+  howToFix?: string;
 }
