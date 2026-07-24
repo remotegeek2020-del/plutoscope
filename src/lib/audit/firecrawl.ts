@@ -3,6 +3,7 @@ import 'server-only';
 import { getServerEnv } from '@/lib/env';
 
 import type { CrawledPage } from './types';
+import { dedupeUrls } from './url-dedupe';
 
 // Firecrawl page-crawl client (Part VIII §46 Week 11; founder-approved vendor). Fetches a single
 // page as LLM-ready markdown + html + metadata — the input to the audit rules. We do NOT build a
@@ -41,9 +42,12 @@ export async function mapSite(domain: string): Promise<string[]> {
   const json = (await response.json()) as { success?: boolean; links?: unknown };
   const links = Array.isArray(json.links) ? json.links : [];
   // Firecrawl may return strings or { url } objects depending on version; normalize to strings.
-  return links
+  const urls = links
     .map((l) => (typeof l === 'string' ? l : ((l as { url?: string })?.url ?? '')))
     .filter((u): u is string => Boolean(u));
+  // Collapse near-duplicate URLs (trailing slash, www, #fragment, tracking params) and drop assets
+  // so we don't audit the same page twice.
+  return dedupeUrls(urls);
 }
 
 interface FirecrawlScrapeResponse {
