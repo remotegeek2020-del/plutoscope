@@ -14,6 +14,8 @@ export interface DomainPresence {
   domain: string;
   /** Number of distinct engines that cite this domain for the prompt (0–3 in MVP). */
   engineCount: number;
+  /** Which engines cite it (e.g. ['gemini']), sorted — so the UI can name them, not just count. */
+  engines: string[];
 }
 
 export interface PromptComparison {
@@ -50,7 +52,10 @@ export function analyzeGaps(
   const presenceFor = (
     domainMap: Map<string, Set<string>> | undefined,
     domain: string,
-  ): DomainPresence => ({ domain, engineCount: domainMap?.get(domain)?.size ?? 0 });
+  ): DomainPresence => {
+    const engines = [...(domainMap?.get(domain) ?? [])].sort();
+    return { domain, engineCount: engines.length, engines };
+  };
 
   return prompts.map((prompt) => {
     const domainMap = byPrompt.get(prompt.id);

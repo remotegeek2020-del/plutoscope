@@ -18,10 +18,29 @@ import { ManageCompetitors } from './manage-competitors';
 
 export const dynamic = 'force-dynamic';
 
+// Human-readable engine names — so the grid says "Gemini", not a mysterious "1/3".
+const ENGINE_LABEL: Record<string, { short: string; full: string }> = {
+  openai: { short: 'ChatGPT', full: 'ChatGPT (OpenAI)' },
+  perplexity: { short: 'Perplexity', full: 'Perplexity' },
+  gemini: { short: 'Gemini', full: 'Gemini (Google)' },
+};
+
 function Cell({ presence }: { presence: DomainPresence }) {
   if (presence.engineCount === 0)
     return <span className="text-slate-300 dark:text-slate-600">—</span>;
-  return <span className="font-medium tabular-nums">{presence.engineCount}/3</span>;
+  return (
+    <span className="flex flex-wrap gap-1">
+      {presence.engines.map((engine) => (
+        <span
+          key={engine}
+          title={`Recommended by ${ENGINE_LABEL[engine]?.full ?? engine}`}
+          className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[11px] font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
+        >
+          {ENGINE_LABEL[engine]?.short ?? engine}
+        </span>
+      ))}
+    </span>
+  );
 }
 
 export default async function CompetitiveViewPage({
@@ -131,7 +150,8 @@ export default async function CompetitiveViewPage({
         Competitive View
       </h1>
       <p className="mt-1 text-sm text-slate-400">
-        Who gets cited across your tracked prompts — you vs. your competitors, per engine (of 3).
+        Who each AI engine (ChatGPT, Perplexity, Gemini) recommends for your questions — you vs. your
+        competitors.
       </p>
 
       <HelpNote title="How do I read this table?">
@@ -149,12 +169,12 @@ export default async function CompetitiveViewPage({
             are competitors you&apos;re tracking.
           </li>
           <li>
-            <strong>&ldquo;1/3&rdquo;</strong> means that site was recommended by 1 of the 3 AI
-            engines for that question. Only Gemini is switched on right now, so 1/3 is today&apos;s
-            maximum — add the OpenAI &amp; Perplexity keys to unlock the other two.
+            <strong>Each green tag names an AI engine that recommends that site</strong> — ChatGPT,
+            Perplexity, or Gemini. Only Gemini is switched on right now, so Gemini is the only tag
+            you&apos;ll see until you add the OpenAI &amp; Perplexity keys.
           </li>
           <li>
-            <strong>&ldquo;—&rdquo;</strong> means that site wasn&apos;t mentioned at all.
+            <strong>&ldquo;—&rdquo;</strong> means no AI engine mentioned that site for the question.
           </li>
           <li>
             A red <strong>GAP</strong> row is a question where a competitor gets recommended and you

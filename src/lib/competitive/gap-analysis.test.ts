@@ -26,6 +26,12 @@ describe('analyzeGaps', () => {
     expect(result[0].competitors[0].engineCount).toBe(1);
   });
 
+  it('records which engines cite each domain (sorted)', () => {
+    expect(result[0].project.engines).toEqual(['openai', 'perplexity']);
+    expect(result[1].competitors[0].engines).toEqual(['gemini']);
+    expect(result[2].project.engines).toEqual([]);
+  });
+
   it('flags a gap when a competitor is cited but the project is not', () => {
     expect(result[1].isGap).toBe(true);
     expect(result[0].isGap).toBe(false); // project is cited on p1
