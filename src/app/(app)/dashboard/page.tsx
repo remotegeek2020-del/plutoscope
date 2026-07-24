@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
 import { HelpNote } from '@/app/(app)/_components/help-note';
+import {
+  ScoreRatingBadge,
+  ScoreRatingLegend,
+} from '@/app/(app)/_components/score-rating';
 import { createClient } from '@/lib/supabase/server';
 
 import { ScoreBar } from './_components/score-bar';
@@ -87,6 +91,7 @@ export default async function DashboardPage() {
           your domain yet. Head to <strong>Competitive</strong> to see who they cite instead, and{' '}
           <strong>Content Briefs</strong> to start changing it.
         </p>
+        <ScoreRatingLegend />
       </HelpNote>
 
       {!projects || projects.length === 0 ? (
@@ -141,8 +146,12 @@ export default async function DashboardPage() {
                       <div>
                         <div className="text-3xl font-semibold tabular-nums">
                           {Math.round(latest.blended_index)}
+                          <span className="text-base font-normal text-slate-400"> / 100</span>
                         </div>
-                        <div className="text-xs text-slate-400">blended index</div>
+                        <div className="mt-1 flex items-center gap-2">
+                          <span className="text-xs text-slate-400">blended index</span>
+                          <ScoreRatingBadge value={latest.blended_index} />
+                        </div>
                       </div>
                       <Sparkline values={trend} />
                     </div>
