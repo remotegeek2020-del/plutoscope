@@ -3,6 +3,10 @@ import {
   DisciplineGlossary,
 } from '@/app/(app)/_components/discipline-glossary';
 import { HelpNote } from '@/app/(app)/_components/help-note';
+import {
+  ScoreRatingBadge,
+  ScoreRatingLegend,
+} from '@/app/(app)/_components/score-rating';
 import { scoreAudit } from '@/lib/audit/score';
 import type { AuditFinding, AuditSeverity } from '@/lib/audit/types';
 import { createClient } from '@/lib/supabase/server';
@@ -72,6 +76,8 @@ export default async function AuditReportPage() {
         </ol>
         <p className="font-medium">What the three scores mean:</p>
         <DisciplineGlossary />
+        <p className="font-medium">How to read the number:</p>
+        <ScoreRatingLegend />
         <p>
           <strong>Audit vs. Content Briefs:</strong> a Brief creates a <em>new</em> page to fill a
           gap; the Audit improves an <em>existing</em> page. Both raise the same three scores.
@@ -115,8 +121,11 @@ export default async function AuditReportPage() {
                   <div className="text-right">
                     <div className="text-2xl font-semibold tabular-nums">
                       {report.overall_score == null ? '—' : Math.round(report.overall_score)}
+                      <span className="text-sm font-normal text-slate-400"> / 100</span>
                     </div>
-                    <div className="text-xs text-slate-400">overall</div>
+                    <div className="mt-0.5">
+                      <ScoreRatingBadge value={report.overall_score} />
+                    </div>
                   </div>
                 </div>
 
