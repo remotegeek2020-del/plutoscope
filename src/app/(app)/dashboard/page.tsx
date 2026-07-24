@@ -5,6 +5,7 @@ import {
   ScoreRatingBadge,
   ScoreRatingLegend,
 } from '@/app/(app)/_components/score-rating';
+import { buildNextSteps } from '@/lib/dashboard/next-steps';
 import { createClient } from '@/lib/supabase/server';
 
 import { ScoreBar } from './_components/score-bar';
@@ -49,6 +50,8 @@ export default async function DashboardPage() {
     scoresByProject.set(row.project_id, list);
   }
 
+  const nextSteps = await buildNextSteps(supabase, projects ?? []);
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -66,6 +69,34 @@ export default async function DashboardPage() {
         Blended visibility index across ChatGPT, Perplexity, and Gemini. SEO joins once the
         rank-tracking vendor is wired.
       </p>
+
+      {nextSteps.length > 0 ? (
+        <section className="mt-6 rounded-xl border border-instrument/30 bg-instrument/5 p-4 dark:border-pluto/30 dark:bg-pluto/5">
+          <h2 className="text-sm font-semibold text-instrument dark:text-pluto">Your next steps</h2>
+          <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+            The highest-impact things to do right now, based on your data.
+          </p>
+          <ul className="mt-3 flex flex-col gap-2">
+            {nextSteps.map((step) => (
+              <li
+                key={step.key}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm font-medium">{step.title}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400">{step.detail}</div>
+                </div>
+                <Link
+                  href={step.href}
+                  className="shrink-0 rounded-md bg-instrument px-3 py-1.5 text-sm font-medium text-white"
+                >
+                  {step.cta}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <HelpNote title="What do these numbers mean?">
         <p>
